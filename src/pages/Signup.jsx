@@ -47,7 +47,7 @@ export default function SignUpUser() {
                                             name="firstName"
                                             id=""
                                             class="block w-full px-3 py-1.5 border border-gray-500 rounded-md shadow-sm focus:outline-none focus:ring-[#29492f] focus:border-green-700 sm:text-sm"
-                                            placeholder="e.g., Yaw"
+                                            placeholder="e.g., Felix"
                                         />
                                     </div>
 
@@ -58,7 +58,7 @@ export default function SignUpUser() {
                                             name="lastName"
                                             id=""
                                             class="block w-full px-3 py-1.5 border border-gray-500 rounded-md shadow-sm focus:outline-none focus:ring-[#29492f] focus:border-green-700 sm:text-sm"
-                                            placeholder="e.g., Kesse"
+                                            placeholder="e.g., Kofi"
                                         />
                                     </div>
                                 </div>
@@ -69,7 +69,7 @@ export default function SignUpUser() {
                                     name="email"
                                     id=""
                                     class="block w-full px-3 py-1.5 border border-gray-500 rounded-md shadow-sm focus:outline-none focus:ring-[#29492f] focus:border-green-700 sm:text-sm"
-                                    placeholder="e.g., yawkesse369@gmail.com"
+                                    placeholder="e.g., kwame232@gmail.com"
                                 />
 
                                 <label class="block mt-2  font-medium mb-2">Password</label>
