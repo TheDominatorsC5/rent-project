@@ -143,13 +143,13 @@ export default function HomePage() {
 
                     {/* Content Wrapper for Text and Buttons */}
                     <div className="relative z-20 max-w-xl text-center lg:text-left">
-                        <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight">
+                        <h1 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-blue-800 to-violet-900 bg-clip-text text-transparent block mb-6 leading-tight">
                             Find Your Perfect
                             <span className="bg-gradient-to-r from-blue-800 to-purple-900 bg-clip-text text-transparent block">
                                 Rental Home
                             </span>
                         </h1>
-                        <p className="text-xl text-white mb-8 leading-relaxed">
+                        <p className="text-xl text-white font-bold mb-8 leading-relaxed">
                             Discover amazing rental properties and connect with trusted landlords. From cozy apartments to spacious houses, find your next home with confidence.
                         </p>
                         <div className="flex flex-col sm:flex-row justify-center lg:justify-start gap-4">
