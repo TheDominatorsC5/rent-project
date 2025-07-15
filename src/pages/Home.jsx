@@ -15,6 +15,9 @@ import {
 } from "lucide-react"; // These are used for your existing sections AND new 'Get Started' section
 import HomeProductCard from "../components/HomeProductCard";
 import { FaSearch, FaPlus } from 'react-icons/fa'; // Keeping these for the hero buttons as per previous instruction
+import HeroVideo from "../assets/videos/hero-video.mp4"
+import DreamHomeVideo from "../assets/videos/dreamhome-video.mp4"
+import HeroImage from "../assets/images/hero-image.jpg"
 
 export default function HomePage() {
   const products = [
@@ -87,21 +90,35 @@ export default function HomePage() {
   return (
     <>
       <Navbar />
-      <div className="min-h-screen bg-gray-900">
+      <div className="min-h-screen bg-gray-900 font-[outfit]">
         {/* Hero Section - FIXED */}
-        <section className="relative overflow-hidden flex flex-col lg:flex-row items-center justify-center py-10 px-4 md:py-20 md:px-10 gap-12 flex-wrap">
+        <section className="relative overflow-hidden flex flex-col lg:flex-row items-center justify-center py-10 px-4 md:py-20 md:px-10 gap-12 flex-wrap min-h-[600px]">
+            {/* Video Background */}
+          {/* Ensure your video files are in the 'public/videos/' folder */}
+          <video
+            autoPlay // Automatically plays the video
+            loop     // Loops the video
+            muted    // Mutes the video (crucial for autoplay and good UX)
+            playsInline // Recommended for mobile to play inline
+            className="absolute inset-0 w-full h-full object-cover z-0" // Full cover, behind everything
+          >
+            {/* Provide paths to your optimized video files */}
+            <source src={HeroVideo} type="video/mp4" />
+            {/* <source src="/videos/apartment-hero.webm" type="video/webm" /> */}
+            {/* Your browser does not support the video tag. */}
+          </video>
           {/* Background gradient overlay */}
           <div className="absolute inset-0 bg-gradient-to-br from-blue-600/20 to-purple-600/20 z-0"></div>
 
           {/* Content Wrapper for Text and Buttons */}
-          <div className="relative z-10 max-w-xl text-center lg:text-left">
+          <div className="relative z-20 max-w-xl text-center lg:text-left">
             <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight">
               Find Your Perfect
-              <span className="bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent block">
+              <span className="bg-gradient-to-r from-blue-800 to-purple-900 bg-clip-text text-transparent block">
                 Rental Home
               </span>
             </h1>
-            <p className="text-xl text-gray-300 mb-8 leading-relaxed">
+            <p className="text-xl text-white mb-8 leading-relaxed">
               Discover amazing rental properties and connect with trusted landlords. From cozy apartments to spacious houses, find your next home with confidence.
             </p>
             <div className="flex flex-col sm:flex-row justify-center lg:justify-start gap-4">
@@ -115,10 +132,11 @@ export default function HomePage() {
           </div>
 
           {/* Hero Image Placeholder - Ensure it's part of the flex container */}
-          <div className="relative z-10 w-full max-w-[500px] h-[350px] rounded-lg flex items-center justify-center text-white text-lg font-bold shadow-lg flex-shrink-0 bg-gray-800/70 border border-gray-700">
+          <div className="relative z-10 w-full max-w-[500px] h-[350px] rounded-lg flex items-center justify-center text-white text-lg font-bold shadow-lg flex-shrink-0 inset-0 bg-black/60
+           ">
             {/* Using a darker background and border for the placeholder to fit the overall dark theme */}
-            Hero Image - Modern Apartment
-            {/* <img src="path/to/your/hero-image.jpg" alt="Modern Apartment" className="w-full h-full object-cover rounded-lg" /> */}
+        
+            <img src={HeroImage} alt="Modern Apartment" className="w-full h-full object-center rounded-lg" /> 
           </div>
         </section>
         {/* --- END: Hero Section --- */}
@@ -144,7 +162,7 @@ export default function HomePage() {
               <p className="text-base text-gray-400 mb-6 leading-relaxed">
                 Browse verified listings, schedule viewings, and apply online with our secure platform.
               </p>
-              <button className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-bold py-3 px-6 rounded-lg text-lg transition-all duration-300">
+              <button className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-bold py-3 px-6 w-full rounded-lg text-lg transition-all duration-300 ">
                 Start Searching
               </button>
             </div>
@@ -158,7 +176,7 @@ export default function HomePage() {
               <p className="text-base text-gray-400 mb-6 leading-relaxed">
                 List your properties, screen tenants, and manage rentals all in one place.
               </p>
-              <button className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-bold py-3 px-6 rounded-lg text-lg transition-all duration-300">
+              <button className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-bold py-3 px-6 w-full rounded-lg text-lg transition-all duration-300">
                 List Property
               </button>
             </div>
@@ -190,9 +208,43 @@ export default function HomePage() {
         
 
         {/* CTA Section */}
-        <section className="py-20 bg-gradient-to-r from-blue-600 to-purple-600">
+        {/* <section className="py-20 bg-gradient-to-r from-blue-600 to-purple-600">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+              Ready to Find Your Dream Home?
+            </h2>
+            <p className="text-xl text-blue-100 mb-8">
+              Join thousands of renters and landlords who trust RentNest for their housing needs.
+            </p>
+            <button className="bg-white text-blue-600 px-8 py-4 rounded-lg font-medium hover:bg-gray-100 transition-all duration-200 flex items-center justify-center mx-auto group">
+              Start Searching Today
+              <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+            </button>
+          </div>
+        </section> */}
+
+        {/* CTA Section with Video Background */}
+        <section className="relative py-20 overflow-hidden">
+          {/* Video Background */}
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="absolute inset-0 w-full h-full object-cover z-0"
+          >
+            <source src={DreamHomeVideo} type="video/mp4" />
+            {/* You can add a WebM source for better compatibility if you have one */}
+            {/* <source src="/assets/videos/cta-video.webm" type="video/webm" /> */}
+            Your browser does not support the video tag.
+          </video>
+
+          {/* Dark Overlay for Video */}
+          <div className="absolute inset-0 bg-black/60 z-[1]"></div>
+
+          {/* Content Wrapper */}
+          <div className="relative z-[2] max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
               Ready to Find Your Dream Home?
             </h2>
             <p className="text-xl text-blue-100 mb-8">
