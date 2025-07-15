@@ -11,21 +11,22 @@ import RentListings from "./pages/RentListings";
 import RentListingDetail from "./pages/RentListingDetail";
 import NotFound from "./pages/NotFound";
 
-function App() {
 
   const rentingAppRouther = createBrowserRouter([
-    {path: '/', element: <Home />},
-    {path: '/signup', element: <Signup />},
-    {path: '/login', element: <Login />},
-    {path: '/otp', element: <Otp />},
-    {path: '/About', element: <About />},
-    {path: '/admin-dashboard', element: <AdminDashboard />},
-    {path: '/user-dashboard', element: <UserDashboard />},
-    {path: '/owner-dashboard', element: <OwnerDashboard />},
-    {path: '/rent-listings', element: <RentListings />},
-    {path: '/rent-listing-detail', element: <RentListingDetail />},
-    {path: '*', element: <NotFound />},
+    { path: '/', element: <Home /> },
+    { path: '/signup', element: <Signup /> },
+    { path: '/login', element: <Login /> },
+    { path: '/otp', element: <Otp /> },
+    { path: '/About', element: <About /> },
+    { path: '/admin-dashboard', element: <AdminDashboard /> },
+    { path: '/user-dashboard', element: <UserDashboard /> },
+    { path: '/owner-dashboard', element: <OwnerDashboard /> },
+    { path: '/rent-listings', element: <RentListings /> },
+    { path: '/rent-listing-detail', element: <RentListingDetail /> },
+    { path: '*', element: <NotFound /> },
   ]);
+
+  export default function App() {
 
   return (
     <>
@@ -34,4 +35,3 @@ function App() {
   )
 }
 
-export default App
