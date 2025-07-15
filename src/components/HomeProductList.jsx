@@ -9,7 +9,7 @@ export default function ProductList() {
             //   location: 'Downtown, City Center',
             //   beds: '2 bed • 2 bath',
             //   size: '1,200',
-            image: 'https://via.placeholder.com/400x250/34495e/ecf0f1?text=Modern+Downtown+Apartment',
+            image: 'https://via.placeholder.com/400x250/34495e/ecf0f1?text=Modern+Downtown+Apartmenhttps://i.pinimg.com/1200x/03/0b/5c/030b5cfede15f68f8a5f2f20e04dcac6.jpgt',
             price: '$2,400/month',
             title: 'Modern Downtown Apartment',
             description: 'Luxury 2BR Downtown',
