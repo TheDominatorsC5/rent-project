@@ -1,5 +1,5 @@
 import { Link } from "react-router";
-import { MapPin } from "lucide-react";
+import { MapPin, Check } from "lucide-react";
 
 export default function RentListingCard() {
 
@@ -14,7 +14,9 @@ export default function RentListingCard() {
             <div className="bg-white w-[90%] mx-auto my-4">
                 <div className="flex justify-between">
                     <h2 className="text-lg md:text-xl font-semibold text-black">Cozy Studio</h2>
-                    <p className="rounded-full bg-[#27AE60] py-1 px-3 text-white">Verified</p>
+                    <p className="flex flex-row items-center justify-center rounded-full bg-[#27AE60] py-1 px-3 text-white">
+                        <Check className="mr-1 p-1" /> Verified
+                    </p>
                 </div>
                 <p className="text-black font-semibold text-sm md:text-lg mt-2">
                     Perfect for young professionals
