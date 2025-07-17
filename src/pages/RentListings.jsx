@@ -1,11 +1,14 @@
 import RentListingCard from "../components/RentListingCard";
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 import { Search } from "lucide-react";
 
 export default function RentListing() {
 
     return (
         <>
-            <div className="w-[94%] my-10 mx-auto">
+            <Navbar />
+            <div className="w-[90%] my-10 mx-auto">
                 <h1 className="font-medium text-4xl">Rental Listings</h1>
                 <p className="text-xl font-semibold mt-4">Find your perfect rental property</p>
 
@@ -18,7 +21,7 @@ export default function RentListing() {
                                 name=""
                                 id=""
                                 placeholder="Enter city or area"
-                                className="w-45 py-1 px-4 border-[#7F8C8D] border text-[#7F8C8D] text-lg font-semibold rounded-lg mt-2" />
+                                className="w-45 py-1 px-4 border-[#7F8C8D] border text-[#7F8C8D] text-lg font-medium rounded-lg mt-2" />
                         </div>
 
                         <div className="flex flex-col">
@@ -28,7 +31,7 @@ export default function RentListing() {
                                 name=""
                                 id=""
                                 placeholder="Any Price"
-                                className="w-45 py-1 px-4 border-[#7F8C8D] border text-[#7F8C8D] text-lg font-semibold rounded-lg mt-2" />
+                                className="w-45 py-1 px-4 border-[#7F8C8D] border text-[#7F8C8D] text-lg font-medium rounded-lg mt-2" />
                         </div>
 
                         <div className="flex flex-col">
@@ -38,7 +41,7 @@ export default function RentListing() {
                                 name=""
                                 id=""
                                 placeholder="Any Room"
-                                className="w-45 py-1 px-4 border-[#7F8C8D] border text-black text-lg font-semibold rounded-lg mt-2" />
+                                className="w-45 py-1 px-4 border-[#7F8C8D] border text-black text-lg font-medium rounded-lg mt-2" />
                         </div>
 
                         <div className="flex flex-col">
@@ -48,15 +51,14 @@ export default function RentListing() {
                                 name=""
                                 id=""
                                 placeholder="All Listings"
-                                className="w-45 py-1 px-4 border-[#7F8C8D] border text-black text-lg font-semibold rounded-lg mt-2" />
+                                className="w-45 py-1 px-4 border-[#7F8C8D] border text-black text-lg font-medium rounded-lg mt-2" />
                         </div>
 
                         <div className="flex flex-col">
-                            {/* <Search /> */}
-                            <button
-                                type="submit"
-                                className="bg-black text-white text-lg py-1 px-4 w-45 mt-8 rounded-lg font-semibold"
-                            >Search</button>
+                            <button 
+                            className="flex items-center justify-center bg-black font-medium text-white px-8 py-2 mt-7 rounded-lg text-lg cursor-pointer hover:bg-zinc-600 shadow-md">
+                                <Search className="mr-2" /> Search
+                            </button>
                         </div>
 
                     </form>
@@ -83,6 +85,8 @@ export default function RentListing() {
                 </div>
 
             </div>
+
+            <Footer />
 
         </>
     );
