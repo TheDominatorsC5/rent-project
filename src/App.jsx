@@ -9,6 +9,7 @@ import Signup from "./pages/Signup";
 import Otp from "./pages/Otp";
 import RentListings from "./pages/RentListings";
 import RentListingDetail from "./pages/RentListingDetail";
+import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
 
 
@@ -23,7 +24,9 @@ import NotFound from "./pages/NotFound";
     { path: '/owner-dashboard', element: <OwnerDashboard /> },
     { path: '/rent-listings', element: <RentListings /> },
     { path: '/rent-listing-detail', element: <RentListingDetail /> },
+    {path: '/contact', element: <Contact /> },
     { path: '*', element: <NotFound /> },
+
   ]);
 
   export default function App() {
