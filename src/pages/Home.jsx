@@ -19,8 +19,31 @@ import HeroVideo from "../assets/videos/hero-video.mp4"
 import DreamHomeVideo from "../assets/videos/dreamhome-video.mp4"
 import HeroImage from "../assets/images/hero-image.jpg"
 import { Link } from "react-router";
+import { apiFetcher } from "../api/client.js"
+import useSWR from "swr";
+import { ClockLoader } from "react-spinners";
 
 export default function HomePage() {
+    const { data, isLoading, error } = useSWR("/property", apiFetcher)
+
+    if (isLoading) {
+        return (
+            <div>
+                <ClockLoader />
+            </div>
+        );
+    }
+
+    if (error) {
+        return (
+            <div>
+                <h1>something went wrong</h1>
+            </div>
+        );
+    }
+
+
+
     const products = [
         {
             icon: HomeIcon,
@@ -122,7 +145,7 @@ export default function HomePage() {
     return (
         <>
             <Navbar />
-            <div className="min-h-screen bg-gray-700 font-[outfit]">
+            <div className="min-h-screen bg-[#F9F9F9] font-[outfit]">
                 {/* Hero Section - FIXED */}
                 <section className="relative overflow-hidden flex flex-col lg:flex-row items-center justify-center py-10 px-4 md:py-20 md:px-10 gap-12 flex-wrap min-h-[600px]">
                     {/* Video Background */}
@@ -140,24 +163,22 @@ export default function HomePage() {
                         {/* Your browser does not support the video tag. */}
                     </video>
                     {/* Background gradient overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-br from-blue-600/20 to-purple-600/20 z-0"></div>
+                    <div className="absolute inset-0  bg-black/60 z-0"></div>
 
                     {/* Content Wrapper for Text and Buttons */}
                     <div className="relative z-20 max-w-xl lg:text-left">
-                        <h1 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-blue-800 to-violet-900 bg-clip-text text-transparent block mb-6 leading-tight">
+                        <h1 className="text-4xl md:text-6xl font-bold text-[#F9F9F9] block mb-6 leading-tight">
                             Find Your Perfect
-                            <span className="bg-gradient-to-r from-blue-800 to-purple-900 bg-clip-text text-transparent block">
                                 Rental Home
-                            </span>
                         </h1>
-                        <p className="text-xl text-white font-bold mb-8 leading-relaxed">
+                        <p className="text-xl text-white mb-8 leading-relaxed">
                             Discover amazing rental properties and connect with trusted landlords. From cozy apartments to spacious houses, find your next home with confidence.
                         </p>
                         <div className="flex flex-col sm:flex-row justify-center lg:justify-start gap-4">
-                            <button className="flex items-center justify-center bg-gradient-to-r from-blue-500 to-purple-600 font-medium text-white px-6 py-3 rounded-lg text-lg cursor-pointer hover:from-blue-600 hover:to-purple-700 transition-all duration-300 shadow-md">
+                            <Link to='/rent-listings'><button className="flex items-center justify-center font-medium px-6 py-3 rounded-lg text-lg cursor-pointer text-white bg-[#2980B9] hover:bg-[#1F618D]">
                                 <FaSearch className="mr-2" /> Search Rentals
-                            </button>
-                            <button className="flex items-center justify-center bg-gradient-to-r from-blue-500 to-purple-600 font-medium text-white px-6 py-3 rounded-lg text-lg cursor-pointer hover:from-blue-600 hover:to-purple-700 transition-all duration-300 shadow-md">
+                            </button></Link>
+                            <button className="flex items-center justify-center font-medium px-6 py-3 rounded-lg text-lg cursor-pointer  text-white bg-[#2980B9] hover:bg-[#1F618D]">
                                 <FaPlus className="mr-2" /> List Your Property
                             </button>
                         </div>
@@ -166,48 +187,48 @@ export default function HomePage() {
                     {/* Hero Image Placeholder - Ensure it's part of the flex container */}
                     <div className="relative z-10 w-full max-w-[500px] h-[350px] rounded-lg flex items-center justify-center text-white text-lg font-bold shadow-lg flex-shrink-0 inset-0 bg-black/60">
                         {/* Using a darker background and border for the placeholder to fit the overall dark theme */}
-                        <div className="absolute inset-0 bg-gradient-to-br from-blue-600/20 to-purple-600/20  z-10"></div>
+                        <div className="absolute inset-0 bg-black/60  z-10"></div>
                         <img src={HeroImage} alt="Modern Apartment" className="w-full h-full object-center rounded-lg inset-0 bg-black/60" />
                     </div>
                 </section>
                 {/* --- END: Hero Section --- */}
 
                 {/* Get Started Today Section (Embedded with Tailwind) */}
-                <section className="py-20 bg-gray-800/50">
+                <section className="py-20 bg-[#F9F9F9]">
                     <div className="text-center mb-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                        <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+                        <h2 className="text-3xl md:text-4xl font-bold text-[#333333] mb-4">
                             Get Started Today
                         </h2>
-                        <p className="text-xl text-white max-w-3xl mx-auto">
+                        <p className="text-xl text-[#333333] max-w-3xl mx-auto">
                             Join thousands of satisfied tenants and property owners
                         </p>
                     </div>
 
                     <div className="flex flex-wrap justify-center gap-8 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         {/* Card for Tenants */}
-                        <div className="bg-gray-800 border border-gray-700 rounded-xl p-8 w-full sm:w-96 shadow-lg flex flex-col items-center text-center hover:bg-gray-700 transition-all duration-300">
-                            <div className="flex items-center justify-center w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full mx-auto mb-5">
+                        <div className="bg-[#F9F9F9] rounded-xl p-8 w-full sm:w-96 shadow-lg flex flex-col items-center text-center ">
+                            <div className="flex items-center justify-center w-16 h-16 bg-[#2980B9] rounded-full mx-auto mb-5">
                                 <User className="text-white h-8 w-8" />
                             </div>
-                            <h3 className="text-2xl font-semibold text-white mb-4">For Tenants</h3>
-                            <p className="text-base text-white mb-6 leading-relaxed">
+                            <h3 className="text-2xl font-semibold text-[#333333] mb-4">For Tenants</h3>
+                            <p className="text-base text-[#333333] mb-6 leading-relaxed">
                                 Browse verified listings, schedule viewings, and apply online with our secure platform.
                             </p>
-                            <button className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-bold py-3 px-6 w-full rounded-lg text-lg transition-all duration-300 ">
+                            <button className="bg-[#2980B9] hover:bg-[#1F618D] text-white font-bold py-3 px-6 w-full rounded-lg text-lg ">
                                 Start Searching
                             </button>
                         </div>
 
                         {/* Card for Property Owners */}
-                        <div className="bg-gray-800 border border-gray-700 rounded-xl p-8 w-full sm:w-96 shadow-lg flex flex-col items-center text-center hover:bg-gray-700 transition-all duration-300">
-                            <div className="flex items-center justify-center w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full mx-auto mb-5">
+                        <div className="bg-[#F9F9F9] rounded-xl p-8 w-full sm:w-96 shadow-lg flex flex-col items-center text-center">
+                            <div className="flex items-center justify-center w-16 h-16 bg-[#2980B9] rounded-full mx-auto mb-5">
                                 <Building2 className="text-white h-8 w-8" />
                             </div>
-                            <h3 className="text-2xl font-semibold text-white mb-4">For Property Owners</h3>
-                            <p className="text-base text-white mb-6 leading-relaxed">
+                            <h3 className="text-2xl font-semibold text-[#333333] mb-4">For Property Owners</h3>
+                            <p className="text-base text-[#333333] mb-6 leading-relaxed">
                                 List your properties, screen tenants, and manage rentals all in one place.
                             </p>
-                            <button className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-bold py-3 px-6 w-full rounded-lg text-lg transition-all duration-300">
+                            <button className="bg-[#2980B9] hover:bg-[#1F618D] text-white font-bold py-3 px-6 w-full rounded-lg text-lg">
                                 List Property
                             </button>
                         </div>
@@ -215,13 +236,13 @@ export default function HomePage() {
                 </section>
 
                 {/* --- START: Featured Listings Section (Using your ProductCard) --- */}
-                <section className="py-20 bg-gray-800/50">
+                <section className="py-20 bg-[#F9F9F9]">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         <div className="text-center mb-16">
-                            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+                            <h2 className="text-3xl md:text-4xl font-bold text-[#333333] mb-4">
                                 Featured Listings
                             </h2>
-                            <p className="text-xl text-white max-w-3xl mx-auto">
+                            <p className="text-xl text-[#333333] max-w-3xl mx-auto">
                                 Discover our most popular rental properties
                             </p>
                         </div>
@@ -240,13 +261,13 @@ export default function HomePage() {
                                 />
                             ))}
                         </div>
-                       <div className="text-center mt-12 flex items-center justify-center">
-                           <Link to="/rent-listings"><button className="bg-gray-700 hover:bg-gray-600 text-white py-3 px-8 rounded-lg text-lg bg-gradient-to-r from-blue-500 to-purple-600 font-medium  cursor-pointer hover:from-blue-600 hover:to-purple-700 transition-all duration-300 shadow-md">
+                        <div className="text-center mt-12 flex items-center justify-center">
+                            <Link to="/rent-listings"><button className="bg-[#2980B9] hover:bg-[#1F618D] text-white py-3 px-8 rounded-lg text-lg font-medium  cursor-pointer shadow-md">
                                 View All Listings
                             </button>
                             </Link>
                         </div>
-                        
+
                     </div>
                 </section>
                 {/* --- END: Featured Listings Section --- */}
@@ -275,25 +296,25 @@ export default function HomePage() {
                     {/* Content Wrapper */}
                     <div className="relative z-[2] max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
                         <h2 className="text-2xl md:text-3xl font-bold mb-4">
-                            Ready to Find Your <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent"> Dream Home</span>?
+                            Ready to Find Your Dream Home?
                         </h2>
                         <p className="text-xl text-white mb-8">
                             Join thousands of renters and landlords who trust MeFieConnect for their housing needs.
                         </p>
-                        <button className="bg-white text-blue-600 px-8 py-4 rounded-lg font-medium hover:bg-gray-100 transition-all duration-200 flex items-center justify-center mx-auto group">
+                        <button className="bg-[#2980B9] hover:bg-[#1F618D] text-white px-8 py-4 rounded-lg font-medium  flex items-center justify-center mx-auto group">
                             Start Searching Today
                             <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
                         </button>
                     </div>
                 </section>
                 {/* Features Section */}
-                <section className="py-20 bg-gray-800/50">
+                <section className="py-20 bg-[#F9F9F9]">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         <div className="text-center mb-16">
-                            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-                                Why Choose <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent "> MefieConnect</span>?
+                            <h2 className="text-3xl md:text-4xl font-bold text-[#333333] mb-4">
+                                Why Choose <span className="text-[#2980B9]"> MeFieConnect</span>?
                             </h2>
-                            <p className="text-xl text-white max-w-3xl mx-auto">
+                            <p className="text-xl text-[#333333] max-w-3xl mx-auto">
                                 The most trusted platform for finding and managing rental properties, built for modern renters and landlords.
                             </p>
                         </div>
@@ -301,11 +322,11 @@ export default function HomePage() {
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                             {features.map((feature, index) => (
                                 <div key={index} className="text-center p-6 hover:bg-gray-750 transition-all duration-300">
-                                    <div className="flex items-center justify-center w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg mx-auto mb-4">
+                                    <div className="flex items-center justify-center w-16 h-16 bg-[#2980B9] rounded-lg mx-auto mb-4">
                                         <feature.icon className="h-8 w-8 text-white" />
                                     </div>
-                                    <h3 className="text-xl font-bold text-white mb-2">{feature.title}</h3>
-                                    <p className="text-white">{feature.description}</p>
+                                    <h3 className="text-xl font-bold text-[#333333] mb-2">{feature.title}</h3>
+                                    <p className="text-[#333333]">{feature.description}</p>
                                 </div>
                             ))}
                         </div>
