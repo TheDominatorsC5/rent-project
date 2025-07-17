@@ -42,13 +42,13 @@ export default function Login() {
     return (
         <>
 
-            <section className="bg-[url(./assets/images/africanInspiredPatternSignupScreen.jpg)] bg-[#F9FAFB] text-slate-800 relative h-[100vh] flex items-center justify-around bg-cover bg-center bg-no-repeat">
+            <section className=" bg-[#2A3545] text-slate-800 relative h-[100vh] flex items-center justify-around bg-cover bg-center bg-no-repeat">
                 <div className='relative z-10 w-full'>
                     <div className="flex flex-col-reverse md:flex-row items-center justify-center gap-8 w-full">
                         <div className="w-2/5 bg-white backdrop-blur-md border border-white/90 rounded-xl shadow-xl p-8">
                             <div className='mb-3 text-center'>
-                                <h1 className='mb-2 text-black text-xl'>Log In</h1>
-                                <p>Welcome back! Please sign in to your account.</p>
+                                <h1 className='mb-4 text-black font-bold text-2xl text-left'>Log In</h1>
+                                <p className='mb-2 text-black text-left'>Welcome back! Please sign in to your account.</p>
                             </div>
                             <form action={loginUser}>
                                 <label htmlFor="" class="block font-medium mb-2">Email</label>
@@ -77,11 +77,11 @@ export default function Login() {
                                 </div>
                                 <div className="flex justify-between my-4">
                                     <RememberMeCheckbox />
-                                    <button className='text-green-700 hover:text-[#29492f]'><a href="">Forgot Password?</a></button>
+                                    <button className='bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent hover:text-[#29492f]'><a href="">Forgot Password?</a></button>
                                 </div>
 
                                 <SubmitButton
-                                    className="bg-green-700 w-full mb-3 text-white hover:bg-[#29492f] transition duration-300 block px-8 py-2 border rounded-md font-semibold"
+                                    className="bg-gradient-to-r from-blue-500 to-purple-600 w-full mb-3 text-white hover:bg-[#29492f] transition duration-300 block px-8 py-2 border rounded-md font-semibold"
                                     title={"Login"} />
 
                                 <div className="flex items-center">
@@ -89,7 +89,7 @@ export default function Login() {
                                     <span className="mx-2 font-semibold">Don't have an account?</span>
                                     <div className="flex-grow border-t border-gray-500"></div>
                                 </div>
-                                <Link to={"/signupuser"} className="flex justify-center border-white/10 text-green-700 hover:text-[#29492f] font-semibold mt-2">Sign Up</Link>
+                                <Link to={"/signup"} className="flex justify-center border-white/10 bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent hover:text-[#29492f] font-semibold mt-2">Sign Up</Link>
                             </form>
                         </div>
                     </div>
