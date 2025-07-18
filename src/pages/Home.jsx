@@ -24,7 +24,7 @@ import useSWR from "swr";
 import { ClockLoader } from "react-spinners";
 
 export default function HomePage() {
-    const { data, isLoading, error } = useSWR("/property", apiFetcher)
+    const { data, isLoading, error } = useSWR("/api/rent/property/all", apiFetcher)
 
     if (isLoading) {
         return (

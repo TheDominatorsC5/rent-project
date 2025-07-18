@@ -4,6 +4,7 @@ import { HousePlus, UserSearch } from 'lucide-react';
 import { apiClient } from '../api/client';
 import { useNavigate } from 'react-router';
 import { useState } from "react"
+import { FaHouseUser } from 'react-icons/fa';
 
 export default function SignUp() {
     const navigate = useNavigate();
@@ -30,6 +31,14 @@ export default function SignUp() {
                 <div className='relative z-10 w-full py-4'>
                     <div className="md:flex items-center justify-center gap-8">
                         <div className="mx-4 md:w-2/5 bg-white backdrop-blur-md border border-white/90 rounded-xl shadow-xl p-8">
+                            {/* Logo */}
+                            <div className='mb-8 flex justify-around items-center text-white transition duration-300 ease-in-out hover:-translate-y-1 hover:scale-110'>
+                                <div className="flex gap-5">
+                                    <Link to="/" className="text-xl font-bold flex items-center gap-2"><FaHouseUser size={30} className="text-primary" />
+                                        <span className="bg-gradient-to-r from-[#5b92f2] to-primary bg-clip-text text-transparent"> MeFieConnect</span>
+                                    </Link>
+                                </div>
+                            </div>
                             <div className="w-full flex flex-row justify-around mb-2">
                                 <div className="flex flex-col items-center">
                                     <span role='button' onClick={() => setUserType('propertySeeker')} className={`border py-2 px-6 rounded-md shadow-sm ${userType === 'propertySeeker' ? 'bg-gradient-to-r from-[#5b92f2] to-primary text-white' : ''} hover:bg-[#29492f] transition duration-300`}>
