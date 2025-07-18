@@ -8,6 +8,7 @@ import PendingReviews from "./pages/Admin/PendingReviews";
 import UserManagement from "./pages/Admin/UserManagement";
 import UserDashboard from "./pages/UserDashboard";
 import OwnerDashboard from "./pages/OwnerDashboard";
+import OwnerListingForm from "./pages/OwnerListingForm";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Otp from "./pages/Otp";
@@ -30,6 +31,7 @@ import { AdminDataProvider } from "./context/AdminDataContext";
     { path: '/admin/users', element: <UserManagement /> },
     { path: '/user-dashboard', element: <UserDashboard /> },
     { path: '/owner-dashboard', element: <OwnerDashboard /> },
+    { path: '/owner-listing-form', element: <OwnerListingForm /> },
     { path: '/rent-listings', element: <RentListings /> },
     { path: '/rent-listing-detail', element: <RentListingDetail /> },
     { path: '*', element: <NotFound /> },

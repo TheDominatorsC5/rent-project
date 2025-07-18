@@ -1,15 +1,18 @@
 import React from "react";
 import { useAdminData } from "../../context/AdminDataContext";
 import Aside from "../../components/Dashboards/Aside";
+import DetailBar from "../../components/Dashboards/DetailBar";
 
-const FlaggedPosts = () => {
+export default function FlaggedPosts() {
     const { flaggedPosts } = useAdminData();
 
     return (
+        <>
+        <DetailBar />
         <div className="flex">
             <Aside />
 
-            <div className="p-6 flex-1">"
+            <div className="p-6 flex-1">
                 <h2 className="text-xl font-semibold mb-4">Flagged Posts</h2>
                 {flaggedPosts.length === 0 ? (
                     <p>No flagged posts.</p>
@@ -25,7 +28,6 @@ const FlaggedPosts = () => {
                 )}
             </div>
         </div>
+        </>
     );
-};
-
-export default FlaggedPosts;
+}

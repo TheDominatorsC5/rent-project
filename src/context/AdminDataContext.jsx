@@ -1,4 +1,4 @@
-// src/context/AdminDataContext.js
+// src/context/AdminDataContext.jsx
 import { createContext, useContext, useState } from "react";
 
 const AdminDataContext = createContext();

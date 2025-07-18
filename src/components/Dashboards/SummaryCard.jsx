@@ -6,7 +6,7 @@ export default function SummaryCard({ title, count, icon }) {
                     <p className="text-gray-500">{title}</p>
                     <p className="text-2xl font-bold">{count}</p>
                 </div>
-                <span className="text-2xl">{icon}</span>
+                <div>{icon}</div>
             </div>
         </>
     );
