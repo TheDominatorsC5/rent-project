@@ -1,1 +1,16 @@
 @import "tailwindcss";
+
+
+
+@theme {
+    --color-primary: #2C3E50; 
+    --color-success: #27AE60;
+    --color-lightgray: #F9F9F9; /*Soft light gray (backgrounds)*/
+    --color-deepgray: #333333; /*Deep gray (main text)*/
+    --color-mutedgray: #7F8C8D; /*Muted gray (secondary text)*/
+    --color-danger: #E74C3C; /*Red (warnings, errors)*/
+    --color-verify: #2ECC71; /*Green (verification, success)*/
+    --color-cta: #2980B9; /*Calm blue (CTA buttons)*/
+    --color-darkblue: #1F618D; /*Darker blue (hover state)*/
+    --font-body: 'Outfit', sans-serif;
+}

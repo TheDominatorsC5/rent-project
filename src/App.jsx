@@ -14,6 +14,7 @@ import Signup from "./pages/Signup";
 import Otp from "./pages/Otp";
 import RentListings from "./pages/RentListings";
 import RentListingDetail from "./pages/RentListingDetail";
+import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
 import { AdminDataProvider } from "./context/AdminDataContext";
 
@@ -34,7 +35,9 @@ import { AdminDataProvider } from "./context/AdminDataContext";
     { path: '/owner-listing-form', element: <OwnerListingForm /> },
     { path: '/rent-listings', element: <RentListings /> },
     { path: '/rent-listing-detail', element: <RentListingDetail /> },
+    {path: '/contact', element: <Contact /> },
     { path: '*', element: <NotFound /> },
+
   ]);
 
   export default function App() {

@@ -1,25 +1,24 @@
 import { Link } from 'react-router';
 import SubmitButton from '../components/SubmitButton';
-import { BriefcaseBusiness, UserCheck } from 'lucide-react';
+import { HousePlus, UserSearch } from 'lucide-react';
 import { apiClient } from '../api/client';
 import { useNavigate } from 'react-router';
 import { useState } from "react"
 
-export default function SignUpUser() {
+export default function SignUp() {
     const navigate = useNavigate();
-    const [email, setEmail] = useState('')
+    const [userType, setUserType] = useState('propertySeeker')
 
-    const signUpUser = async (data) => {
+    const signUp = async (data) => {
         try {
-            const response = await apiClient.post("/signup", data, {
+            const response = await apiClient.post(`/api/rent/signup${userType === 'propertyOwner' ? '/landlord' : ''}`, data, {
                 headers: {
                     "Content-Type": "application/json",
                 }
             });
-
-            navigate("/otp", {
-                state: { email: response.data.email }
-            });
+            if (response.data.success) {
+                navigate(userType === 'propertyOwner' ? '/login' : '/');
+            }
         } catch (error) {
             console.log(error);
         }
@@ -27,71 +26,94 @@ export default function SignUpUser() {
 
     return (
         <>
-            <section className="bg-[url(./assets/images/africanInspiredPatternSignupScreen.jpg)] bg-[#F9FAFB] text-slate-800 flex items-center justify-center relative h-[100vh] bg-cover bg-center bg-no-repeat">
-
-                <div className='relative z-10 w-full'>
+            <section className="bg-lightgray text-deepgray flex items-center justify-center relative min-h-[100vh] bg-cover bg-center bg-no-repeat">
+                <div className='relative z-10 w-full py-4'>
                     <div className="md:flex items-center justify-center gap-8">
                         <div className="mx-4 md:w-2/5 bg-white backdrop-blur-md border border-white/90 rounded-xl shadow-xl p-8">
-                           <div className='mb-3 text-center'>
-                                <h1 className='mb-2 text-black text-xl'>Register</h1>
-                                <p>Register as a Property Owner.</p>
-                            </div>
-                            <form action={signUpUser}>
-
-                                <div className='flex gap-4'>
-
-                                    <div className='w-full'>
-                                        <label class="block font-medium mb-3">First Name</label>
-                                        <input
-                                            type="text"
-                                            name="firstName"
-                                            id=""
-                                            class="block w-full px-3 py-1.5 border border-gray-500 rounded-md shadow-sm focus:outline-none focus:ring-[#29492f] focus:border-green-700 sm:text-sm"
-                                            placeholder="e.g., Felix"
-                                        />
-                                    </div>
-
-                                    <div className='w-full'>
-                                        <label class="block font-medium mb-3">Last Name</label>
-                                        <input
-                                            type="text"
-                                            name="lastName"
-                                            id=""
-                                            class="block w-full px-3 py-1.5 border border-gray-500 rounded-md shadow-sm focus:outline-none focus:ring-[#29492f] focus:border-green-700 sm:text-sm"
-                                            placeholder="e.g., Kofi"
-                                        />
-                                    </div>
+                            <div className="w-full flex flex-row justify-around mb-2">
+                                <div className="flex flex-col items-center">
+                                    <span role='button' onClick={() => setUserType('propertySeeker')} className={`border py-2 px-6 rounded-md shadow-sm ${userType === 'propertySeeker' ? 'bg-gradient-to-r from-[#5b92f2] to-primary text-white' : ''} hover:bg-[#29492f] transition duration-300`}>
+                                        <UserSearch />
+                                    </span>
+                                    <p className="font-semibold">Property Seeker</p>
                                 </div>
 
-                                <label class="block mt-2  font-medium mb-2">Email</label>
-                                <input
-                                    type="email"
-                                    name="email"
-                                    id=""
-                                    class="block w-full px-3 py-1.5 border border-gray-500 rounded-md shadow-sm focus:outline-none focus:ring-[#29492f] focus:border-green-700 sm:text-sm"
-                                    placeholder="e.g., kwame232@gmail.com"
-                                />
+                                <div className="flex flex-col items-center">
+                                    <span role='button' onClick={() => setUserType('propertyOwner')} className={`border border-gray-500 py-2 px-6 rounded-md ${userType === 'propertyOwner' ? 'bg-gradient-to-r from-[#5b92f2] to-primary text-white' : ''} hover:bg-[#29492f] transition duration-300 hover:text-white`}>
+                                        <HousePlus />
+                                    </span>
+                                    <p className="font-semibold">Property Owner</p>
+                                </div>
 
-                                <label class="block mt-2  font-medium mb-2">Password</label>
-                                <input
-                                    type="password"
-                                    name="password"
-                                    id=""
-                                    class="block w-full px-3 py-1.5 border border-gray-500 rounded-md shadow-sm focus:outline-none focus:ring-[#29492f] focus:border-green-700 sm:text-sm"
-                                    placeholder="**********"
-                                />
+                            </div>
 
-                                <label class="block mt-2  font-medium mb-3">Confirm Password</label>
-                                <input
-                                    type="password"
-                                    name="confirmPassword"
-                                    id=""
-                                    class="block w-full px-3 py-1.5 border border-gray-500 rounded-md shadow-sm focus:outline-none focus:ring-[#29492f] focus:border-green-700 sm:text-sm"
-                                    placeholder="**********"
-                                />
+                            <hr className='text-primary my-4' />
 
+                            <form action={signUp}>
+                                <div className='mt-4'>
+                                    <div className='flex gap-4'>
+
+                                        <div className='w-full'>
+                                            <label class="block font-medium mb-3">First Name</label>
+                                            <input
+                                                type="text"
+                                                name="firstName"
+                                                id=""
+                                                class="block w-full px-3 py-1.5 border border-gray-500 rounded-md shadow-sm focus:outline-none focus:ring-[#29492f] focus:border-green-700 sm:text-sm"
+                                                placeholder="e.g., Felix"
+                                            />
+                                        </div>
+
+                                        <div className='w-full'>
+                                            <label class="block font-medium mb-3">Last Name</label>
+                                            <input
+                                                type="text"
+                                                name="lastName"
+                                                id=""
+                                                class="block w-full px-3 py-1.5 border border-gray-500 rounded-md shadow-sm focus:outline-none focus:ring-[#29492f] focus:border-green-700 sm:text-sm"
+                                                placeholder="e.g., Kofi"
+                                            />
+                                        </div>
+                                    </div>
+
+                                    <label class="block mt-2  font-medium mb-2">Email</label>
+                                    <input
+                                        type="email"
+                                        name="email"
+                                        id=""
+                                        class="block w-full px-3 py-1.5 border border-gray-500 rounded-md shadow-sm focus:outline-none focus:ring-[#29492f] focus:border-green-700 sm:text-sm"
+                                        placeholder="e.g., kwame232@gmail.com"
+                                    />
+
+                                    <label class="block mt-2 font-medium mb-2">Phone no</label>
+                                    <input
+                                        type="tel"
+                                        name="phoneNumber"
+                                        id=""
+                                        class="block w-full px-3 py-1.5 border border-gray-500 rounded-md shadow-sm focus:outline-none focus:ring-[#29492f] focus:border-green-700 sm:text-sm"
+                                        placeholder="e.g., +233 24 123 4567"
+                                    />
+
+                                    <label class="block mt-2  font-medium mb-2">Password</label>
+                                    <input
+                                        type="password"
+                                        name="password"
+                                        id=""
+                                        class="block w-full px-3 py-1.5 border border-gray-500 rounded-md shadow-sm focus:outline-none focus:ring-[#29492f] focus:border-green-700 sm:text-sm"
+                                        placeholder="**********"
+                                    />
+
+                                    <label class="block mt-2  font-medium mb-3">Confirm Password</label>
+                                    <input
+                                        type="password"
+                                        name="confirmPassword"
+                                        id=""
+                                        class="block w-full px-3 py-1.5 border border-gray-500 rounded-md shadow-sm focus:outline-none focus:ring-[#29492f] focus:border-green-700 sm:text-sm"
+                                        placeholder="**********"
+                                    />
+                                </div>
                                 <SubmitButton
-                                    className="text-sm bg-green-700 text-white hover:bg-[#29492f] transition duration-300 w-full my-4 block py-2 border rounded-md font-semibold"
+                                    className="text-sm bg-gradient-to-r from-[#5b92f2] to-primary text-white hover:bg-[#29492f] transition duration-300 w-full my-4 block py-2 border rounded-md font-semibold"
                                     title={"Sign Up"} />
 
                                 <div className="flex items-center">
@@ -99,9 +121,8 @@ export default function SignUpUser() {
                                     <span className="mx-2 font-semibold">Already have an account?</span>
                                     <div className="flex-grow border-t border-gray-500"></div>
                                 </div>
-                                <Link to={"/login"} className="flex justify-center border-white/10 text-green-700 hover:text-[#29492f] font-semibold mt-2">Login</Link>
+                                <Link to={"/login"} className="flex justify-center border-white/10 bg-gradient-to-r from-[#5b92f2] to-primary bg-clip-text text-transparent hover:text-[#29492f] font-semibold mt-2">Login</Link>
                             </form>
-
                         </div>
                     </div>
                 </div>
