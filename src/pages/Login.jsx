@@ -3,7 +3,7 @@ import { Link } from 'react-router';
 import SubmitButton from '../components/SubmitButton';
 import { apiClient } from '../api/client';
 import { useNavigate } from 'react-router';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import RememberMeCheckbox from '../components/Checkbox';
 
 export default function Login() {
@@ -14,7 +14,7 @@ export default function Login() {
 
     const loginUser = async (data) => {
         try {
-            const response = await apiClient.post("/signin", data, {
+            const response = await apiClient.post("/api/rent/signin", data, {
                 headers: {
                     "Content-Type": "application/json",
                 }
@@ -25,8 +25,8 @@ export default function Login() {
                 localStorage.setItem("username", response.data.username);
                 setValidCredentials(true);
                 localStorage.setItem("role", response.data.role)
-                if (response.data.role = "vendor") {
-                    navigate("/vendors/products");
+                if (response.data.role = "landlord") {
+                    navigate("/admin");
                 } else {
                     navigate("/");
                 }
@@ -39,10 +39,20 @@ export default function Login() {
         }
     }
 
+    useEffect(() => {
+        if (localStorage.getItem("ACCESS_TOKEN")) {
+            if (localStorage.getItem("role") === "landlord") {
+                navigate("/admin");
+            } else {
+                navigate("/");
+            }
+        }
+    }, [navigate]);
+
     return (
         <>
 
-            <section className=" bg-[#2A3545] text-slate-800 relative h-[100vh] flex items-center justify-around bg-cover bg-center bg-no-repeat">
+            <section className="bg-lightgray text-deepgray relative h-[100vh] flex items-center justify-around bg-cover bg-center bg-no-repeat">
                 <div className='relative z-10 w-full'>
                     <div className="flex flex-col-reverse md:flex-row items-center justify-center gap-8 w-full">
                         <div className="w-2/5 bg-white backdrop-blur-md border border-white/90 rounded-xl shadow-xl p-8">
@@ -77,11 +87,11 @@ export default function Login() {
                                 </div>
                                 <div className="flex justify-between my-4">
                                     <RememberMeCheckbox />
-                                    <button className='bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent hover:text-[#29492f]'><a href="">Forgot Password?</a></button>
+                                    <button className='bg-gradient-to-r from-[#5b92f2] to-primary bg-clip-text text-transparent hover:text-[#29492f]'><a href="">Forgot Password?</a></button>
                                 </div>
 
                                 <SubmitButton
-                                    className="bg-gradient-to-r from-blue-500 to-purple-600 w-full mb-3 text-white hover:bg-[#29492f] transition duration-300 block px-8 py-2 border rounded-md font-semibold"
+                                    className="bg-gradient-to-r from-[#5b92f2] to-primary w-full mb-3 text-white hover:bg-[#29492f] transition duration-300 block px-8 py-2 border rounded-md font-semibold"
                                     title={"Login"} />
 
                                 <div className="flex items-center">
@@ -89,7 +99,7 @@ export default function Login() {
                                     <span className="mx-2 font-semibold">Don't have an account?</span>
                                     <div className="flex-grow border-t border-gray-500"></div>
                                 </div>
-                                <Link to={"/signup"} className="flex justify-center border-white/10 bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent hover:text-[#29492f] font-semibold mt-2">Sign Up</Link>
+                                <Link to={"/signup"} className="flex justify-center border-white/10 bg-gradient-to-r from-[#5b92f2] to-primary bg-clip-text text-transparent hover:text-[#29492f] font-semibold mt-2">Sign Up</Link>
                             </form>
                         </div>
                     </div>
