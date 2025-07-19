@@ -97,7 +97,7 @@ export default function RentListingDetails() {
                 </div>
 
                 {/* Right card section */}
-                <div className="w-full lg:w-[30%] bg-white rounded-lg shadow-md p-6">
+                <div className="w-full lg:w-[30%] bg-white rounded-lg shadow-md p-6 mb-20">
                     <h4 className="text-xl md:text-2xl font-bold text-black">₵1,500/month</h4>
                     <p className="text-[#7F8C8D] text-sm mt-1">Starting from 6 months</p>
 
