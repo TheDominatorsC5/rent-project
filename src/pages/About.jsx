@@ -300,7 +300,7 @@ export default function About() {
             <button className="bg-[#2980B9] hover:bg-[#1F618D] text-white font-bold py-3 px-8 rounded-lg text-lg shadow-lg">
               List Your Property
             </button>
-            <Link to="/properties"><button className="bg-transparent border-2 border-white  hover:bg-[#1F618D]  text-blue-600 font-bold py-3 px-8 rounded-lg text-lg shadow-lg">
+            <Link to="/properties"><button className="bg-transparent border-2 border-white  hover:bg-[#1F618D] hover:text-white  text-blue-600 font-bold py-3 px-8 rounded-lg text-lg shadow-lg">
               Browse Properties
             </button></Link>
           </div>
