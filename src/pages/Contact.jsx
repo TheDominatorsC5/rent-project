@@ -5,10 +5,10 @@ export default function Contact() {
     return (
         <>
             <Navbar />
-            <div className="bg-[#2A3545] text-gray-800">
+            <div className="bg-lightgray text-deepgray">
                 <div className="max-w-6xl mx-auto px-4 py-12">
-                    <h2 className="text-3xl font-bold text-center mb-4 text-white">Get in Touch</h2>
-                    <p className="text-center text-white mb-10">
+                    <h2 className="text-3xl font-bold text-center mb-4">Get in Touch</h2>
+                    <p className="text-center mb-10">
                         We're here to help you with all your property needs. Reach out to us through any of the channels below.
                     </p>
 
@@ -27,8 +27,8 @@ export default function Contact() {
                         </button>
                     </form>
 
-                    <div className="gap-6 mt-12 text-gray-200">
-                        <div>
+                    <div className="gap-6 mt-12">
+                        <div className='bg-[#2C3E50] text-white p-6 rounded-lg shadow'>
                             <h4 className="text-xl font-semibold mb-2">Contact Information</h4>
                             <p><strong>Office:</strong> 123 Business District, Suite 456, NY 10001</p>
                             <p><strong>Phone:</strong> +1 (555) 123-4567</p>
@@ -50,21 +50,21 @@ export default function Contact() {
                     </div>
 
                     <div className="mt-12">
-                        <h3 className="text-2xl font-semibold mb-4 text-center text-gray-200">Platform Support</h3>
+                        <h3 className="text-2xl font-semibold mb-4 text-center">Platform Support</h3>
                         <div className="grid md:grid-cols-3 gap-6">
-                            <div className="bg-white p-6 rounded-lg shadow text-center">
-                                <h4 className="font-bold">FAQ</h4>
-                                <p className="text-gray-600">Find quick answers to common questions.</p>
+                            <div className="bg-[#2C3E50] text-white p-6 rounded-lg shadow text-center">
+                                <h4 className="font-bold text-white">FAQ</h4>
+                                <p className="text-white">Find quick answers to common questions.</p>
                                 <button className="text-blue-500 mt-2">View FAQ</button>
                             </div>
-                            <div className="bg-white p-6 rounded-lg shadow text-center">
-                                <h4 className="font-bold">Technical Support</h4>
-                                <p className="text-gray-600">Get help with issues and platform functionality.</p>
+                            <div className="bg-[#2C3E50] text-white p-6 rounded-lg shadow text-center">
+                                <h4 className="font-bold text-white">Technical Support</h4>
+                                <p className="text-white">Get help with issues and platform functionality.</p>
                                 <button className="text-blue-500 mt-2">Get Support</button>
                             </div>
-                            <div className="bg-white p-6 rounded-lg shadow text-center">
-                                <h4 className="font-bold">Partnership</h4>
-                                <p className="text-gray-600">Interested in partnering with us?</p>
+                            <div className="bg-[#2C3E50] text-white p-6 rounded-lg shadow text-center">
+                                <h4 className="font-bold text-white">Partnership</h4>
+                                <p className="text-white">Interested in partnering with us?</p>
                                 <button className="text-blue-500 mt-2">Learn More</button>
                             </div>
                         </div>

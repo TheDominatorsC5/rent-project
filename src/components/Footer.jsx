@@ -43,9 +43,9 @@ export default function Footer() {
                             <h4 className="text-lg font-semibold text-[#F9F9F9] bg-clip-text transition duration-300 ease-in-out hover:-translate-y-1 hover:scale-110">Quick Links</h4>
                             <ul className="space-y-2">
                                 <li>
-                                    <a href="#" className="text-white hover:text-[#1F618D] transition-colors text-sm">
+                                   <Link to="/rent-listings" className="text-white hover:text-[#1F618D] transition-colors text-sm">
                                         Browse Properties
-                                    </a>
+                                    </Link>
                                 </li>
                                 <li>
                                     <a href="#" className="text-white hover:text-[#1F618D] transition-colors text-sm">

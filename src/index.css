@@ -1,6 +1,5 @@
 @import "tailwindcss";
-
-
+@import "tailwindcss/utilities";
 
 @theme {
     --color-primary: #2C3E50; 
@@ -13,4 +12,8 @@
     --color-cta: #2980B9; /*Calm blue (CTA buttons)*/
     --color-darkblue: #1F618D; /*Darker blue (hover state)*/
     --font-body: 'Outfit', sans-serif;
+}
+
+button {
+    @apply cursor-pointer
 }

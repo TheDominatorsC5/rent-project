@@ -21,18 +21,19 @@ import HeroImage from "../assets/images/hero-image.jpg"
 import { Link } from "react-router";
 import { apiFetcher } from "../api/client.js"
 import useSWR from "swr";
-import { ClockLoader } from "react-spinners";
+import { BeatLoader } from "react-spinners";
 
 export default function HomePage() {
-    const { data, isLoading, error } = useSWR("/property", apiFetcher)
+    const { data, isLoading, error } = useSWR("/api/rent/property/all", apiFetcher)
 
     if (isLoading) {
-        return (
-            <div>
-                <ClockLoader />
-            </div>
-        );
-    }
+    return (
+        <div className="flex flex-col items-center justify-center min-h-screen bg-white text-[#2980B9]">
+            <BeatLoader size={50} color="#2980B9" />
+            <p className="mt-4 text-xl font-semibold">Loading ...</p>
+        </div>
+    );
+}
 
     if (error) {
         return (
@@ -185,11 +186,11 @@ export default function HomePage() {
                     </div>
 
                     {/* Hero Image Placeholder - Ensure it's part of the flex container */}
-                    <div className="relative z-10 w-full max-w-[500px] h-[350px] rounded-lg flex items-center justify-center text-white text-lg font-bold shadow-lg flex-shrink-0 inset-0 bg-black/60">
+                    {/* <div className="relative z-10 w-full max-w-[500px] h-[350px] rounded-lg flex items-center justify-center text-white text-lg font-bold shadow-lg flex-shrink-0 inset-0 bg-black/60"> */}
                         {/* Using a darker background and border for the placeholder to fit the overall dark theme */}
-                        <div className="absolute inset-0 bg-black/60  z-10"></div>
+                        {/* <div className="absolute inset-0 bg-black/60  z-10"></div>
                         <img src={HeroImage} alt="Modern Apartment" className="w-full h-full object-center rounded-lg inset-0 bg-black/60" />
-                    </div>
+                    </div> */}
                 </section>
                 {/* --- END: Hero Section --- */}
 
