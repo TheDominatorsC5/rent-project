@@ -1,14 +1,40 @@
-import React, { useState } from 'react';
-import { Menu, X, ChevronDown, } from 'lucide-react';
+import React, { useEffect, useState } from 'react';
+import { Menu, X, ChevronDown, CirclePower, } from 'lucide-react';
 import { Link, useLocation } from 'react-router'; // Fix: use 'react-router-dom' not 'react-router'
 import { FaHouseUser } from "react-icons/fa";
 
 
 export default function Navbar() {
     const [isOpen, setIsOpen] = useState(false);
+    const [username, setUsername] = useState('');
+    const [userrole, setUserRole] = useState('');
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
     const location = useLocation();
 
     const isActive = (path) => location.pathname === path;
+
+
+    useEffect(() => {
+        if (localStorage.getItem("ACCESS_TOKEN")) {
+            setIsAuthenticated(true);
+        }
+        const storedUserRole = localStorage.getItem('role');
+        if (storedUserRole) {
+            setUserRole(storedUserRole);
+        }
+
+        const storedUser = localStorage.getItem('username');
+        if (storedUser) {
+            setUsername(storedUser);
+        }
+    }, []);
+
+    const logout = () => {
+        localStorage.clear()
+        setIsAuthenticated(false);
+        setUserRole('');
+        setUsername('');
+    }
 
     return (
         <nav className="bg-[#2C3E50] font-[outfit] border-b border-gray-800 sticky top-0 z-50">
@@ -31,8 +57,8 @@ export default function Navbar() {
                                     key={path}
                                     to={path}
                                     className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${isActive(path)
-                                            ? 'text-blue-400 bg-gray-800'
-                                            : 'text-gray-300 hover:text-white hover:bg-gray-800'
+                                        ? 'text-blue-400 bg-gray-800'
+                                        : 'text-gray-300 hover:text-white hover:bg-gray-800'
                                         }`}
                                 >
                                     {path === '/' ? 'Home' : 'About'}
@@ -68,13 +94,30 @@ export default function Navbar() {
 
                     {/* CTA Button */}
                     <div className="hidden md:block gap-2">
-                        <Link to='/login'><button className=" hover:text-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors ">
-                            Sign In
-                        </button></Link>
-                        <Link to='/signup'><button className="bg-[#2980B9] hover:bg-[#1F618D] text-white px-4 py-2 rounded-md text-sm font-medium transition-colors">
-                            Get Started
-                        </button></Link>
+                        {isAuthenticated ? (
+                            <>
+                                <span className="text-white mr-2">Welcome, {username}</span>
+
+                                <button onClick={() => logout()} className="p-2">
+                                    <CirclePower className="inline text-white hover:text-red-500" />
+                                </button>
+                            </>
+                        ) : (
+                            <>
+                                <Link to='/login'>
+                                    <button className=" hover:text-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors ">
+                                        Sign In
+                                    </button>
+                                </Link>
+                                <Link to='/signup'>
+                                    <button className="bg-[#2980B9] hover:bg-[#1F618D] text-white px-4 py-2 rounded-md text-sm font-medium transition-colors">
+                                        Get Started
+                                    </button>
+                                </Link>
+                            </>
+                        )}
                     </div>
+
 
                     {/* Mobile menu button */}
                     <div className="md:hidden">
@@ -97,8 +140,8 @@ export default function Navbar() {
                                 key={path}
                                 to={path}
                                 className={`block px-3 py-2 rounded-md text-base font-medium transition-colors ${isActive(path)
-                                        ? 'text-blue-400 bg-gray-700'
-                                        : 'text-gray-300 hover:text-white hover:bg-[#1F618D]'
+                                    ? 'text-blue-400 bg-gray-700'
+                                    : 'text-gray-300 hover:text-white hover:bg-[#1F618D]'
                                     }`}
                                 onClick={() => setIsOpen(false)}
                             >
@@ -114,7 +157,7 @@ export default function Navbar() {
                         <a href="#" className="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-[#1F618D] transition-colors">
                             Contact
                         </a>
-                    <button className="w-full text-left bg-[#2980B9] hover:text-[#1F618D] text-white px-3 py-2 rounded-md text-base font-medium transition-colors mt-4 gap-2">
+                        <button className="w-full text-left bg-[#2980B9] hover:text-[#1F618D] text-white px-3 py-2 rounded-md text-base font-medium transition-colors mt-4 gap-2">
                             Sign In
                         </button>
                         <button className="w-full text-left bg-[#2980B9] hover:bg-[#1F618D] text-white px-3 py-2 rounded-md text-base font-medium transition-colors mt-4">

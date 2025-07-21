@@ -3,7 +3,7 @@ import SubmitButton from '../components/SubmitButton';
 import { HousePlus, UserSearch } from 'lucide-react';
 import { apiClient } from '../api/client';
 import { useNavigate } from 'react-router';
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { FaHouseUser } from 'react-icons/fa';
 
 export default function SignUp() {
@@ -11,19 +11,59 @@ export default function SignUp() {
     const [userType, setUserType] = useState('propertySeeker')
 
     const signUp = async (data) => {
+        const error = formValidation(data);
+        if (error) {
+            alert(error);
+            return;
+        }
         try {
-            const response = await apiClient.post(`/api/rent/signup${userType === 'propertyOwner' ? '/landlord' : ''}`, data, {
+            const response = await apiClient.post(`/api/rent/signup${userType === 'propertyOwner' ? '/landlord' : '/renter'}`, data, {
                 headers: {
                     "Content-Type": "application/json",
                 }
             });
             if (response.data.success) {
                 navigate(userType === 'propertyOwner' ? '/login' : '/');
+            } else {
+                alert(response.data.message || 'An error occurred during sign up.');
             }
         } catch (error) {
-            console.log(error);
+            if (error.response && error.response.data) {
+                alert(error.response.data.message || 'An error occurred during sign up.');
+            } else {
+                alert('An unexpected error occurred. Please try again later.');
+            }
+            // console.error('Sign up error:', error);
         }
     }
+
+    const formValidation = (data) => {
+        const password = data.get('password');
+        const confirmPassword = data.get('confirmPassword');
+        const email = data.get('email');
+
+        if (password.length < 8) {
+            return 'Password must be at least 8 characters long';
+        }
+        if (password !== confirmPassword) {
+            return 'Passwords do not match';
+        }
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailPattern.test(email)) {
+            return 'Invalid email format';
+        }
+        return null;
+    }
+
+    useEffect(() => {
+        if (localStorage.getItem("ACCESS_TOKEN")) {
+            if (localStorage.getItem("role") === "landlord") {
+                navigate("/owner-dashboard");
+            } else {
+                navigate("/");
+            }
+        }
+    }, [navigate]);
 
     return (
         <>
@@ -68,6 +108,7 @@ export default function SignUp() {
                                                 type="text"
                                                 name="firstName"
                                                 id=""
+                                                required
                                                 class="block w-full px-3 py-1.5 border border-gray-500 rounded-md shadow-sm focus:outline-none focus:ring-[#29492f] focus:border-green-700 sm:text-sm"
                                                 placeholder="e.g., Felix"
                                             />
@@ -79,6 +120,7 @@ export default function SignUp() {
                                                 type="text"
                                                 name="lastName"
                                                 id=""
+                                                required
                                                 class="block w-full px-3 py-1.5 border border-gray-500 rounded-md shadow-sm focus:outline-none focus:ring-[#29492f] focus:border-green-700 sm:text-sm"
                                                 placeholder="e.g., Kofi"
                                             />
@@ -90,6 +132,7 @@ export default function SignUp() {
                                         type="email"
                                         name="email"
                                         id=""
+                                        required
                                         class="block w-full px-3 py-1.5 border border-gray-500 rounded-md shadow-sm focus:outline-none focus:ring-[#29492f] focus:border-green-700 sm:text-sm"
                                         placeholder="e.g., kwame232@gmail.com"
                                     />
@@ -99,6 +142,7 @@ export default function SignUp() {
                                         type="tel"
                                         name="phoneNumber"
                                         id=""
+                                        required
                                         class="block w-full px-3 py-1.5 border border-gray-500 rounded-md shadow-sm focus:outline-none focus:ring-[#29492f] focus:border-green-700 sm:text-sm"
                                         placeholder="e.g., +233 24 123 4567"
                                     />
@@ -108,6 +152,7 @@ export default function SignUp() {
                                         type="password"
                                         name="password"
                                         id=""
+                                        required
                                         class="block w-full px-3 py-1.5 border border-gray-500 rounded-md shadow-sm focus:outline-none focus:ring-[#29492f] focus:border-green-700 sm:text-sm"
                                         placeholder="**********"
                                     />
@@ -117,6 +162,7 @@ export default function SignUp() {
                                         type="password"
                                         name="confirmPassword"
                                         id=""
+                                        required
                                         class="block w-full px-3 py-1.5 border border-gray-500 rounded-md shadow-sm focus:outline-none focus:ring-[#29492f] focus:border-green-700 sm:text-sm"
                                         placeholder="**********"
                                     />
