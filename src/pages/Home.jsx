@@ -25,20 +25,23 @@ import { BeatLoader } from "react-spinners";
 
 export default function HomePage() {
     const { data, isLoading, error } = useSWR("/api/rent/property/all", apiFetcher)
-
+    
     if (isLoading) {
-    return (
-        <div className="flex flex-col items-center justify-center min-h-screen bg-white text-[#2980B9]">
-            <BeatLoader size={50} color="#2980B9" />
-            <p className="mt-4 text-xl font-semibold">Loading ...</p>
-        </div>
-    );
-}
+        return (
+            <div className="flex flex-col items-center justify-center min-h-screen bg-white text-[#2980B9]">
+                <BeatLoader size={50} color="#2980B9" />
+                <p className="mt-4 text-xl font-semibold">Loading ...</p>
+            </div>
+        );
+    }
+    // if (!isLoading) {
+    //     console.log('data --- ', data)
+    // }
 
     if (error) {
         return (
-            <div>
-                <h1>something went wrong</h1>
+            <div className="flex flex-col items-center justify-center min-h-screen bg-white text-[#2980B9]">
+                <h1 className="font-[outfit]">something went wrong ...</h1>
             </div>
         );
     }
@@ -170,7 +173,7 @@ export default function HomePage() {
                     <div className="relative z-20 max-w-xl lg:text-left">
                         <h1 className="text-4xl md:text-6xl font-bold text-[#F9F9F9] block mb-6 leading-tight">
                             Find Your Perfect
-                                Rental Home
+                            Rental Home
                         </h1>
                         <p className="text-xl text-white mb-8 leading-relaxed">
                             Discover amazing rental properties and connect with trusted landlords. From cozy apartments to spacious houses, find your next home with confidence.
@@ -187,8 +190,8 @@ export default function HomePage() {
 
                     {/* Hero Image Placeholder - Ensure it's part of the flex container */}
                     {/* <div className="relative z-10 w-full max-w-[500px] h-[350px] rounded-lg flex items-center justify-center text-white text-lg font-bold shadow-lg flex-shrink-0 inset-0 bg-black/60"> */}
-                        {/* Using a darker background and border for the placeholder to fit the overall dark theme */}
-                        {/* <div className="absolute inset-0 bg-black/60  z-10"></div>
+                    {/* Using a darker background and border for the placeholder to fit the overall dark theme */}
+                    {/* <div className="absolute inset-0 bg-black/60  z-10"></div>
                         <img src={HeroImage} alt="Modern Apartment" className="w-full h-full object-center rounded-lg inset-0 bg-black/60" />
                     </div> */}
                 </section>
@@ -249,17 +252,21 @@ export default function HomePage() {
                         </div>
 
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center">
-                            {featuredListingsData.map((listing, index) => (
+                            {/* {data?.property?.map(p => (
                                 <HomeProductCard
-                                    key={index}
-                                    image={listing.image}
-                                    price={listing.price}
-                                    title={listing.title}
-                                    location={listing.location}
-                                    beds={listing.beds}
-                                    size={listing.size}
-                                    verified={listing.verified}
+                                    key={p.id}
+                                    image={p.images?.[0]?.url}
+                                    price={p.monthlyprice}
+                                    title={p.propertyTitle}
+                                    location={p.city}
+                                    beds={String(p.bedrooms ?? '')}
+                                    size={String(p.squareFeet ?? '')}
+                                    verified={p.isVerified ?? true}
                                 />
+                            ))} */}
+
+                            {data?.map(property => (
+                                <HomeProductCard key={property.id} property={property} />
                             ))}
                         </div>
                         <div className="text-center mt-12 flex items-center justify-center">
