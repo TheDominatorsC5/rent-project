@@ -2,7 +2,8 @@ import { useState } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import SummaryCard from "../components/Dashboards/SummaryCard";
-import { CheckCircle, FileText, Eye, MessageCircle, Plus } from "lucide-react";
+import { CheckCircle, FileText, Eye, MessageCircle, Plus, SquarePenIcon, User } from "lucide-react";
+import { Link } from "react-router";
 
 export default function OwnerDashboard() {
     const [listings, setListings] = useState([
@@ -58,14 +59,20 @@ export default function OwnerDashboard() {
             <Navbar />
             <main className="max-w-6xl mx-auto p-4 space-y-6">
 
-                <div>
-                    <h1 className="text-2xl font-bold">Owner Dashboard</h1>
-                    <p className="text-gray-600">Manage your property listings and verification status</p>
+                <div className="flex justify-between items-center">
+                    <div>
+                        <h1 className="text-2xl font-bold">Owner Dashboard</h1>
+                        <p className="text-gray-600">Manage your property listings and verification status</p>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                        <span className="text-xl text-gray-500"><User /></span>
+                        <p>User Name</p>
+                    </div>
                 </div>
 
-                <div className="bg-white border rounded-lg shadow-sm p-4 flex flex-col md:flex-row justify-between items-center">
+                <div className="border border-[#7F8C8D] rounded-lg shadow-sm p-4 flex flex-col md:flex-row justify-between items-center">
                     <div className="flex items-center gap-3">
-                        <CheckCircle className="text-green-500" />
+                        <CheckCircle className="text-[#27AE60]" />
                         <div>
                             <p className="font-medium">Verification Status</p>
                             <p className="text-sm text-gray-500">Verified Owner</p>
@@ -78,22 +85,24 @@ export default function OwnerDashboard() {
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-                    <SummaryCard title="Active Listings" count={3} icon={<FileText className="text-blue-500" />} />
-                    <SummaryCard title="Total Views" count={1247} icon={<Eye className="text-gray-700" />} />
-                    <SummaryCard title="Inquiries" count={28} icon={<MessageCircle className="text-indigo-500" />} />
+                    <SummaryCard title="Active Listings" count={3} icon={<FileText className="text-blue-500 bg-gray-200 p-1 rounded-sm size-8 border border-[#7F8C8D] hover:bg-[#2980B9]" />} />
+                    <SummaryCard title="Total Views" count={1247} icon={<Eye className="text-gray-700 bg-gray-200 p-1 rounded-sm size-8 border border-[#7F8C8D] hover:bg-[#2980B9]" />} />
+                    <SummaryCard title="Inquiries" count={28} icon={<MessageCircle className="text-blue-500 bg-gray-200 p-1 rounded-sm size-8 border border-[#7F8C8D] hover:bg-[#2980B9]" />} />
                 </div>
 
-                <div className="bg-white border rounded-lg shadow-sm">
-                    <div className="flex justify-between items-center p-4 border-b">
+                <div className="bg-white border rounded-lg shadow-sm border-[#7F8C8D]">
+                    <div className="flex justify-between items-center p-4 border-b border-[#7F8C8D]">
                         <h3 className="font-semibold text-lg">Your Property Listings</h3>
-                        <button className="flex items-center gap-1 text-sm bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700">
-                            <Plus size={16} /> Request New Listing
-                        </button>
+                        <Link to="/owner-listing-form">
+                            <button className="flex items-center gap-1 text-sm text-white px-3 py-1 rounded bg-[#2980B9] hover:bg-[#1F618D]">
+                                <Plus size={18} /> Request New Listing
+                            </button>
+                        </Link>
                     </div>
                     <div className="divide-y">
                         {listings.map((listing) => (
-                            <div key={listing.id} className="flex justify-between items-start gap-4 p-4">
-                                <div className="flex gap-4">
+                            <div key={listing.id} className="md:flex md:justify-between items-start gap-4 p-4 border-[#7F8C8D]">
+                                <div className="flex gap-4 mb-2">
                                     <div className="w-16 h-16 bg-gray-200 rounded flex items-center justify-center text-xs text-gray-500">
                                         Image
                                     </div>
@@ -106,8 +115,8 @@ export default function OwnerDashboard() {
                                             <span>Listed: {listing.date}</span>
                                         </div>
                                         <div className="flex gap-2 mt-2">
-                                            <button className="text-sm text-gray-600 border px-2 py-1 rounded hover:bg-gray-50">📝 Request Update</button>
-                                            <button className="text-sm text-gray-600 border px-2 py-1 rounded hover:bg-gray-50">👁️ View Listing</button>
+                                            <button className="text-sm text-white bg-[#2980B9] hover:bg-[#1F618D] px-3 py-1 rounded flex gap-2 items-center"><SquarePenIcon size={16} className="" /> Request Update</button>
+                                            <button className="text-sm text-white bg-[#2980B9] hover:bg-[#1F618D] px-3 py-1 rounded flex gap-2 items-center"><Eye size={16} className="" /> View Listing</button>
                                         </div>
                                     </div>
                                 </div>
@@ -120,14 +129,14 @@ export default function OwnerDashboard() {
                     </div>
                 </div>
 
-                <div className="bg-white border rounded-lg shadow-sm p-4">
+                <div className="bg-white rounded-lg shadow-sm p-4 border border-[#7F8C8D]">
                     <h3 className="font-semibold text-lg mb-2">Recent Activity</h3>
-                    <hr />
-                    <ul className="mt-3 space-y-2 text-sm">
+                    <hr className="border-[#7F8C8D]" />
+                    <ul className="mt-3 space-y-2 text-xs md:text-sm">
                         {activities.map((activity) => (
-                            <li key={activity.id} className="text-gray-700 flex justify-between">
-                                <span>{activity.message}</span>
-                                <span className="text-gray-400">{activity.time}</span>
+                            <li key={activity.id} className="text-gray-700 flex justify-between gap-2">
+                                <span className="max-sm:w-[16rem] md:w-[32rem]">{activity.message}</span>
+                                <span className="text-gray-400 ">{activity.time}</span>
                             </li>
                         ))}
                     </ul>

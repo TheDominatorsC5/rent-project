@@ -3,6 +3,7 @@ import { useAdminData } from "../context/AdminDataContext";
 import Aside from "../components/Dashboards/Aside";
 import DetailBar from "../components/Dashboards/DetailBar";
 import SummaryCard from "../components/Dashboards/SummaryCard";
+import PreviewSection from "../components/Dashboards/PreviewSection";
 import {
     ClipboardDocumentListIcon,
     ExclamationTriangleIcon,
@@ -51,40 +52,45 @@ export default function AdminDashboard() {
 
                     {/* Summary Cards */}
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-                        <SummaryCard 
-                        title="Total Listings" 
-                        count={allListings.length} 
-                        icon={<ClipboardDocumentListIcon className="w-6 h-6 text-blue-500" />}/>
-                        <SummaryCard 
-                        title="Pending Reviews" 
-                        count={pendingReviews.length}
-                        icon={<ClockIcon className="w-6 h-6 text-blue-500" />}/>
-                        <SummaryCard 
-                        title="Flagged Posts" 
-                        count={flaggedPosts.length}
-                        icon={<ExclamationTriangleIcon className="w-6 h-6 text-blue-500" />}/>
-                        <SummaryCard 
-                        title="Active Users" 
-                        count={users.length}
-                        icon={<UsersIcon className="w-6 h-6 text-blue-500" />}/>
+                        <SummaryCard
+                            title="Total Listings"
+                            count={allListings.length}
+                            icon={<ClipboardDocumentListIcon className="w-6 h-6 text-blue-500" />} />
+                        <SummaryCard
+                            title="Pending Reviews"
+                            count={pendingReviews.length}
+                            icon={<ClockIcon className="w-6 h-6 text-blue-500" />} />
+                        <SummaryCard
+                            title="Flagged Posts"
+                            count={flaggedPosts.length}
+                            icon={<ExclamationTriangleIcon className="w-6 h-6 text-blue-500" />} />
+                        <SummaryCard
+                            title="Active Users"
+                            count={users.length}
+                            icon={<UsersIcon className="w-6 h-6 text-blue-500" />} />
                     </div>
 
-                    <div className="gap-4 mt-4 border rounded p-4 flex items-center justify-between shadow-sm mb-4">
-                        <button className="border p-2 rounded flex items-center gap-1 w-full h-16">
-                            <PlusIcon className="w-5 h-5" /> 
-                            Create New Listing</button>
+                    <div className="border border-[#7F8C8D] rounded p-4 mb-4">
+                        <div className="flex-1">
+                            <h2 className="font-medium">Quick Actions</h2>
+                        </div>
 
-                        <button className="border p-2 rounded flex items-center gap-1 w-full h-16">
-                            <UserPlusIcon className="w-5 h-5" /> 
-                            Add New User
+                        <div className="flex flex-col md:flex-row gap-4 mt-4 w-full">
+
+                            <button className="border p-3 rounded-sm flex items-center gap-2 w-full md:flex-1 h-12 text-white bg-[#2980B9] hover:bg-[#1F618D]">
+                                <PlusIcon className="w-5 h-5" />
+                                Create New Listing
                             </button>
-
-                        <button className="border p-2 rounded flex items-center gap-1 w-full h-16">
-                            <ArrowUpTrayIcon className="w-5 h-5" />
-                            Export Data
-                        </button>
+                            <button className="border p-3 rounded-sm flex items-center gap-2 w-full md:flex-1 h-12 text-white bg-[#2980B9] hover:bg-[#1F618D]">
+                                <UserPlusIcon className="w-5 h-5" />
+                                Add New User
+                            </button>
+                            <button className="border p-3 rounded-sm flex items-center gap-2 w-full md:flex-1 h-12 text-white bg-[#2980B9] hover:bg-[#1F618D]">
+                                <ArrowUpTrayIcon className="w-5 h-5" />
+                                Export Data
+                            </button>
+                        </div>
                     </div>
-
 
                     {/* Previews */}
                     <PreviewSection title="Pending Verification Requests" items={allListings.slice(0, 3)} />

@@ -20,12 +20,10 @@
     "react-dom": "^19.1.0",
     "react-icons": "^5.5.0",
     "react-router": "^7.6.3",
-<<<<<<< HEAD
-    "react-router-dom": "^7.7.0"
-=======
+    "react-router-dom": "^7.7.0",
     "react-spinners": "^0.17.0",
-    "swr": "^2.3.4"
->>>>>>> 6575eab049f3cf5af6af1f101f78f6580d11cf0d
+    "swr": "^2.3.4",
+    "yet-another-react-lightbox": "^3.24.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.30.1",
