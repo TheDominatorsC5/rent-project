@@ -11,6 +11,7 @@ import UserManagement from "./pages/Admin/UserManagement";
 import UserDashboard from "./pages/UserDashboard";
 import OwnerDashboard from "./pages/OwnerDashboard";
 import OwnerListingForm from "./pages/OwnerListingForm";
+import UpdateListingForm from "./pages/UpdateListingForm";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import RentListings from "./pages/RentListings";
@@ -27,6 +28,8 @@ import ListingGallery from "./pages/ListingGallery";
     { path: '/login', element: <Login /> },
     { path: '/About', element: <About /> },
     { path: '/admin', element: <AdminDashboard /> },
+    { path: '/admin/login', element: <AdminLogin /> },
+    { path: '/admin/review', element: <AdminReview /> },
     { path: '/admin/listings', element: <AllListings /> },
     { path: '/admin/flagged', element: <FlaggedPosts /> },
     { path: '/admin/pending', element: <PendingReviews /> },
@@ -34,6 +37,7 @@ import ListingGallery from "./pages/ListingGallery";
     { path: '/user-dashboard', element: <UserDashboard /> },
     { path: '/owner-dashboard', element: <OwnerDashboard /> },
     { path: '/owner-listing-form', element: <OwnerListingForm /> },
+    { path: '/update-listing-form', element: <UpdateListingForm /> },
     { path: '/rent-listings', element: <RentListings /> },
     { path: '/rent-listing-detail', element: <RentListingDetail /> },
     { path: '/listing-gallery', element: <ListingGallery /> },

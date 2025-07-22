@@ -3,8 +3,13 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import SummaryCard from "../components/Dashboards/SummaryCard";
 import { HeartIcon, EyeIcon, SearchIcon, Forward, TrashIcon, User } from "lucide-react";
+import useSWR from "swr";
+import { apiFetcher } from "../api/client";
 
 export default function UserDashboard() {
+    const {data, isLoading, error} = useSWR("/api/rent/property/favorite/all", apiFetcher);
+    console.log('favorites:', data)
+
     const [savedListings, setSavedListings] = useState([
         { id: 1, title: "Mock Apartment", location: "123 Main Street", rooms: 2, bath: 2, price: 2500 },
         { id: 2, title: "Luxury Studio", location: "456 Oak Avenue", rooms: 1, bath: 1, price: 1800 },

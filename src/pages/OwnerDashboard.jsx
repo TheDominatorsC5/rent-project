@@ -6,10 +6,20 @@ import { CheckCircle, FileText, Eye, MessageCircle, Plus, SquarePenIcon, User } 
 import { Link } from "react-router";
 import useSWR from "swr";
 import { apiFetcher } from "../api/client";
+import { useNavigate } from "react-router";
 
 export default function OwnerDashboard() {
     const { data, isLoading, error } = useSWR("/api/rent/property/landlord/properties", apiFetcher);
     console.log('listing:', data)
+
+    const navigate = useNavigate();
+    const navigationHandler = (property) => {
+        navigate('/rent-listing-detail', {state: {property: property}});
+    }
+
+    const updateHandler = (property) => {
+        navigate('/update-listing-form', {state: {property: property}})
+    }
 
     const [listings, setListings] = useState([
         {
@@ -120,8 +130,9 @@ export default function OwnerDashboard() {
                                             <span>Listed: {'01/01/2025'}</span>
                                         </div>
                                         <div className="flex gap-2 mt-2">
-                                            <button className="text-sm text-white bg-[#2980B9] hover:bg-[#1F618D] px-3 py-1 rounded flex gap-2 items-center"><SquarePenIcon size={16} className="" /> Update Listing</button>
-                                            <button className="text-sm text-white bg-[#2980B9] hover:bg-[#1F618D] px-3 py-1 rounded flex gap-2 items-center"><Eye size={16} className="" /> View Listing</button>
+                                            <button onClick={() => {updateHandler(listing)}} className="text-sm text-white bg-[#2980B9] hover:bg-[#1F618D] px-3 py-1 rounded flex gap-2 items-center"><SquarePenIcon size={16} className="" /> Update Listing</button>
+
+                                            <button onClick={() => {navigationHandler(listing)}} className="text-sm text-white bg-[#2980B9] hover:bg-[#1F618D] px-3 py-1 rounded flex gap-2 items-center"><Eye size={16} className="" /> View Listing</button>
                                         </div>
                                     </div>
                                 </div>
