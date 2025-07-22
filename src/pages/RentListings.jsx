@@ -2,8 +2,11 @@ import RentListingCard from "../components/RentListingCard";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { Search } from "lucide-react";
+import useSWR from "swr"
+import { apiFetcher } from "../api/client";
 
 export default function RentListing() {
+    const { data, IsLoading, error } = useSWR(`/api/rent/property/all`, apiFetcher);
 
     return (
         <>
@@ -90,7 +93,7 @@ export default function RentListing() {
 
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 p gap-8 justify-between w-full mx-auto">
-                    {[1, 2, 3, 4, 5, 6,].map(n => <RentListingCard key={n} />)}
+                    {data?.map(property => <RentListingCard key={property.id} property={property} />)}
                 </div>
 
             </div>

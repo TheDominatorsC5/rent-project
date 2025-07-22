@@ -1,6 +1,8 @@
 import { createBrowserRouter,RouterProvider } from "react-router"
 import Home from "./pages/Home"
 import About from "./pages/About";
+import AdminLogin from "./pages/Admin/AdminLogin";
+import AdminReview from "./pages/Admin/AdminReview";
 import AdminDashboard from "./pages/AdminDashboard";
 import AllListings from "./pages/Admin/AllListings";
 import FlaggedPosts from "./pages/Admin/FlaggedPosts";
@@ -23,6 +25,7 @@ import ListingGallery from "./pages/ListingGallery";
     { path: '/', element: <Home /> },
     { path: '/signup', element: <Signup /> },
     { path: '/login', element: <Login /> },
+    { path: '/otp', element: <Otp /> },
     { path: '/About', element: <About /> },
     { path: '/admin', element: <AdminDashboard /> },
     { path: '/admin/listings', element: <AllListings /> },
