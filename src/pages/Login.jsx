@@ -104,7 +104,7 @@ export default function Login() {
                                 </div>
 
                                 <SubmitButton
-                                    className="bg-gradient-to-r from-[#5b92f2] to-primary w-full mb-3 text-white hover:bg-[#29492f] transition duration-300 block px-8 py-2 border rounded-md font-semibold"
+                                    className="bg-[#2980B9] w-full mb-3 text-white hover:bg-[#29492f] transition duration-300 block px-8 py-2 border rounded-md font-semibold"
                                     title={"Login"} />
 
                                 <div className="flex items-center">

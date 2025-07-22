@@ -81,14 +81,14 @@ export default function SignUp() {
                             </div>
                             <div className="w-full flex flex-row justify-around mb-2">
                                 <div className="flex flex-col items-center">
-                                    <span role='button' onClick={() => setUserType('propertySeeker')} className={`border py-2 px-6 rounded-md shadow-sm ${userType === 'propertySeeker' ? 'bg-gradient-to-r from-[#5b92f2] to-primary text-white' : ''} hover:bg-[#29492f] transition duration-300`}>
+                                    <span role='button' onClick={() => setUserType('propertySeeker')} className={`border py-2 px-6 rounded-md shadow-sm ${userType === 'propertySeeker' ? 'bg-[#2980B9] text-white' : ''} hover:bg-[#29492f] transition duration-300`}>
                                         <UserSearch />
                                     </span>
                                     <p className="font-semibold">Property Seeker</p>
                                 </div>
 
                                 <div className="flex flex-col items-center">
-                                    <span role='button' onClick={() => setUserType('propertyOwner')} className={`border border-gray-500 py-2 px-6 rounded-md ${userType === 'propertyOwner' ? 'bg-gradient-to-r from-[#5b92f2] to-primary text-white' : ''} hover:bg-[#29492f] transition duration-300 hover:text-white`}>
+                                    <span role='button' onClick={() => setUserType('propertyOwner')} className={`border border-gray-500 py-2 px-6 rounded-md ${userType === 'propertyOwner' ? 'bg-[#2980B9] text-white' : ''} hover:bg-[#29492f] transition duration-300 hover:text-white`}>
                                         <HousePlus />
                                     </span>
                                     <p className="font-semibold">Property Owner</p>
@@ -168,7 +168,7 @@ export default function SignUp() {
                                     />
                                 </div>
                                 <SubmitButton
-                                    className="text-sm bg-gradient-to-r from-[#5b92f2] to-primary text-white hover:bg-[#29492f] transition duration-300 w-full my-4 block py-2 border rounded-md font-semibold"
+                                    className="text-sm bg-[#2980B9] text-white hover:bg-[#29492f] transition duration-300 w-full my-4 block py-2 border rounded-md font-semibold"
                                     title={"Sign Up"} />
 
                                 <div className="flex items-center">

@@ -11,7 +11,6 @@ import OwnerDashboard from "./pages/OwnerDashboard";
 import OwnerListingForm from "./pages/OwnerListingForm";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
-import Otp from "./pages/Otp";
 import RentListings from "./pages/RentListings";
 import RentListingDetail from "./pages/RentListingDetail";
 import Contact from "./pages/Contact";
@@ -24,7 +23,6 @@ import ListingGallery from "./pages/ListingGallery";
     { path: '/', element: <Home /> },
     { path: '/signup', element: <Signup /> },
     { path: '/login', element: <Login /> },
-    { path: '/otp', element: <Otp /> },
     { path: '/About', element: <About /> },
     { path: '/admin', element: <AdminDashboard /> },
     { path: '/admin/listings', element: <AllListings /> },
