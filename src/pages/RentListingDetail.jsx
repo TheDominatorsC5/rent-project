@@ -1,12 +1,13 @@
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import {
-    MapPin, CarFront, WavesLadder, ShieldCheck, Phone, MessageSquare,
-    Star, UserRound, Check, Images, Heart, Flag,
+    MapPin, CarFront, WavesLadder, ShieldCheck, Phone, MessageSquare, Cable,
+    Star, UserRound, Check, Images, Heart, Wind, ChevronLeft, Dumbbell, WifiHigh,
 } from "lucide-react";
 import { Link } from "react-router-dom"; // ✅ make sure it's from react-router-dom
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router";
+import { apiClient, apiFetcher } from "../api/client";
 
 export default function RentListingDetails() {
     const location = useLocation();
@@ -19,15 +20,31 @@ export default function RentListingDetails() {
         );
     }
 
+    const userNavigationHandler = async () => {
+        const token = localStorage.getItem("ACCESS_TOKEN");
+        if (token === null) {
+            navigate("/login");
+            return;
+        }
+
+        const res = await apiClient.post(`/api/rent/property/favorite/${property.id}`);
+        if (res.data.success) {
+            navigate("/user-dashboard");
+        }
+    }
+
     return (
         <>
             <Navbar />
 
             <div className="w-[90%] max-w-[1200px] mx-auto my-6 font-[outfit]">
                 {/* Breadcrumb */}
-                <p className="text-sm sm:text-base md:text-xl font-semibold">
-                    <span className="text-[#7F8C8D]">Home &gt; Listings &gt; </span> Modern 2BR Apartment
-                </p>
+                <Link to={"/rent-listings"}>
+                <button className="flex items-center text-sm sm:text-base md:text-xl font-medium text-[#7F8C8D] hover:text-black cursor-pointer">
+                    <ChevronLeft className="mr-2" /> All Listings
+                </button>
+                </Link>
+                
 
                 {/* Gallery */}
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 my-6 sm:my-10 relative">
@@ -76,11 +93,8 @@ export default function RentListingDetails() {
                         </h1>
 
                         <div className="flex flex-row gap-4">
-                            <button onClick={navigationHandler}>
+                            <button onClick={userNavigationHandler}>
                                 <Heart className="border border-zinc-300 fill-zinc-200 bg-white size-10 rounded-xl p-2 hover:fill-red-600 stroke-0" />
-                            </button>
-                            <button onClick={navigationHandler}>
-                                <Flag className="border border-zinc-300 fill-zinc-200 bg-white size-10 rounded-xl p-2 hover:fill-red-600 stroke-zinc-300 hover:stroke-red-600" />
                             </button>
                             
                         </div>
@@ -112,7 +126,7 @@ export default function RentListingDetails() {
                         <p className="flex items-center"><WavesLadder className="mr-2" /> Pool</p>
                         <p className="flex items-center"><ShieldCheck className="mr-2" /> Security</p> */}
                         {
-                            property.amenities.map(amenity => (<p className="flex items-center"><WavesLadder className="mr-2" /> {amenity[0]}</p>))
+                            property.amenities.map(amenity => (<p className="flex items-center">{amenity=="Parking"? <CarFront className="mr-2" /> : amenity=="Pool" ? <WavesLadder className="mr-2" /> : amenity=="Security" ? <ShieldCheck className="mr-2" /> : amenity=="Wifi" ? <WifiHigh className="mr-2" /> : amenity=="Generator" ? <Cable className="mr-2" /> : amenity=="Air Conditioning" ? <Wind className="mr-2" /> : amenity=="Gym" ? <Dumbbell className="mr-2" /> : ""} {amenity}</p>))
                         }
                     </div>
                 </div>
@@ -120,7 +134,7 @@ export default function RentListingDetails() {
                 {/* Right card section */}
                 <div className="w-full lg:w-[30%] bg-white rounded-lg shadow-md p-6 mb-20">
                     <h4 className="text-xl md:text-2xl font-bold text-black">₵{property.monthlyPrice}/month</h4>
-                    <p className="text-[#7F8C8D] text-sm mt-1">Starting from 6 months</p>
+                    <p className="text-[#7F8C8D] text-sm mt-1">{property.leaseTerm}</p>
 
                     {/* Owner info */}
                     <p className="text-lg mt-5 font-medium">Property Owner</p>
