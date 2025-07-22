@@ -25,7 +25,6 @@ import ListingGallery from "./pages/ListingGallery";
     { path: '/', element: <Home /> },
     { path: '/signup', element: <Signup /> },
     { path: '/login', element: <Login /> },
-    { path: '/otp', element: <Otp /> },
     { path: '/About', element: <About /> },
     { path: '/admin', element: <AdminDashboard /> },
     { path: '/admin/listings', element: <AllListings /> },
