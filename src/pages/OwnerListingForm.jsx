@@ -1,7 +1,10 @@
 import { useState } from "react";
-import { Listbox } from "@headlessui/react";
+// import { Listbox } from "@headlessui/react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import { apiClient } from "../api/client";
+import { useNavigate } from "react-router";
+import SubmitButton from "../components/SubmitButton";
 
 const propertyTypes = [
     "Apartment",
@@ -32,8 +35,63 @@ const propertyTypes = [
 ];
 
 export default function OwnerListingForm() {
-    const [selectedType, setSelectedType] = useState(propertyTypes[0]);
+    const navigate = useNavigate();
+
     const [photos, setPhotos] = useState([]);
+    const [selectedType, setSelectedType] = useState("");
+    const [leaseTerm, setLeaseTerm] = useState("");
+
+    const handlePhotoChange = (e) => {
+        const files = Array.from(e.target.files);
+        setPhotos([...photos, ...files]);
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        const form = e.target;
+        const formData = new FormData(form);
+
+        // Append controlled fields
+        formData.set("propertyType", selectedType);
+        formData.set("leaseTerm", leaseTerm);
+        photos.forEach((file, index) => {
+            formData.append(`images`, file);
+        });
+
+        try {
+            const response = await apiClient.post("/api/rent/property/create", formData, {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem("ACCESS_TOKEN")}`,
+                    "Content-Type": "multipart/form-data",
+                },
+            });
+
+            if (response.data.success) {
+                navigate('/owner-dashboard');
+                console.log("Submitted successfully");
+                // Reset form or show success message
+            }
+        } catch (error) {
+            console.error("Upload failed:", error);
+        }
+    };
+
+    // const handleSubmit = async (data) => {
+
+    //     try {
+    //         console.log('data:', data)
+    //         const response = await apiClient.post('/api/rent/property/create', data, {
+    //             headers: `Bearer ${localStorage.getItem("ACCESS_TOKEN")}`
+    //         });
+
+    //         if (response.data.success) {
+    //             console.log('submitted')
+    //         }
+    //     } catch (error) {
+    //         console.log(error)
+    //     }
+    // }
 
     return (
         <>
@@ -46,19 +104,39 @@ export default function OwnerListingForm() {
                     </div>
                     <button className="text-blue-600 underline">Back to Properties</button>
                 </div>
-                <form className="space-y-8">
+
+                <form onSubmit={handleSubmit} className="space-y-8">
 
                     <div>
                         <h3 className="text-xl font-semibold mb-4">Basic Information</h3>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
                                 <label htmlFor="propertyTitle" className="block font-medium mb-1">Property Title</label>
-                                <input type="text" id="propertyTitle" className="border border-gray-300 p-2 rounded w-full" />
+                                <input
+                                    type="text"
+                                    id="propertyTitle"
+                                    name="propertyTitle"
+                                    className="border border-gray-300 p-2 rounded w-full" />
                             </div>
                             <div>
                                 <label className="block font-medium mb-1">Property Type</label>
                                 <div className="relative">
-                                    <Listbox value={selectedType} onChange={setSelectedType}>
+                                    <select
+                                        id="propertyType"
+                                        name="propertyType"
+                                        value={selectedType}
+                                        onChange={(e) => setSelectedType(e.target.value)}
+                                        className="border border-gray-300 rounded p-2 w-full"
+                                        required
+                                    >
+                                        <option value="">-- Choose a type --</option>
+                                        {propertyTypes.map((type) => (
+                                            <option key={type} value={type}>
+                                                {type}
+                                            </option>
+                                        ))}
+                                    </select>
+                                    {/* <Listbox value={selectedType} onChange={setSelectedType}>
                                         <div className="relative">
                                             <Listbox.Button className="w-full border border-gray-300 rounded px-3 py-2 text-left">
                                                 {selectedType}
@@ -77,7 +155,7 @@ export default function OwnerListingForm() {
                                                 ))}
                                             </Listbox.Options>
                                         </div>
-                                    </Listbox>
+                                    </Listbox> */}
                                 </div>
                             </div>
                         </div>
@@ -85,6 +163,8 @@ export default function OwnerListingForm() {
                             <label className="block font-medium mb-1">Description</label>
                             <textarea
                                 rows="4"
+                                id="description"
+                                name="description"
                                 className="w-full border border-gray-300 rounded p-2"
                                 placeholder="Describe your property..."
                             />
@@ -93,22 +173,46 @@ export default function OwnerListingForm() {
 
                     <div>
                         <h3 className="text-xl font-semibold mb-4">Location</h3>
+                        <div>
+                            <label className="block font-medium mb-1">Street Address</label>
+                            <input
+                                type="text"
+                                name="streetAddress"
+                                id="streetAddress"
+                                className="w-full border border-gray-300 rounded p-2" />
+                        </div>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
-                                <label className="block font-medium mb-1">Street Address</label>
-                                <input type="text" className="w-full border border-gray-300 rounded p-2" />
-                            </div>
-                            <div>
                                 <label className="block font-medium mb-1">City</label>
-                                <input type="text" className="w-full border border-gray-300 rounded p-2" />
+                                <input
+                                    type="text"
+                                    name="city"
+                                    id="city"
+                                    className="w-full border border-gray-300 rounded p-2" />
                             </div>
                             <div>
                                 <label className="block font-medium mb-1">State/Region</label>
-                                <input type="text" className="w-full border border-gray-300 rounded p-2" />
+                                <input
+                                    type="text"
+                                    name="region"
+                                    id="region"
+                                    className="w-full border border-gray-300 rounded p-2" />
+                            </div>
+                            <div>
+                                <label className="block font-medium mb-1">GPS Address</label>
+                                <input
+                                    type="text"
+                                    name="gpsAddress"
+                                    id="gpsAddress"
+                                    className="w-full border border-gray-300 rounded p-2" />
                             </div>
                             <div>
                                 <label className="block font-medium mb-1">Country</label>
-                                <input type="text" className="w-full border border-gray-300 rounded p-2" value="Ghana" readOnly />
+                                <input
+                                    type="text"
+                                    name="country"
+                                    id="country"
+                                    className="w-full border border-gray-300 rounded p-2" value="Ghana" readOnly />
                             </div>
                         </div>
                     </div>
@@ -116,29 +220,68 @@ export default function OwnerListingForm() {
                     <div>
                         <h3 className="text-xl font-semibold mb-4">Property Details</h3>
                         <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                            <input className="border p-2 rounded" placeholder="Bedrooms" type="number" />
-                            <input className="border p-2 rounded" placeholder="Bathrooms" type="number" />
-                            <input className="border p-2 rounded" placeholder="Square Feet" type="number" />
-                            <input className="border p-2 rounded" placeholder="Year Built" type="number" />
-                            <input className="border p-2 rounded" placeholder="Parking Spaces" type="number" />
-                            <input className="border p-2 rounded" placeholder="Pet Policy" />
+                            <input
+                                className="border p-2 rounded" placeholder="Bedrooms"
+                                type="number"
+                                name="bedrooms"
+                                id="bedrooms" />
+                            <input
+                                className="border p-2 rounded" placeholder="Bathrooms"
+                                type="number"
+                                name="bathrooms"
+                                id="bathrooms" />
+                            <input
+                                className="border p-2 rounded" placeholder="Square Feet"
+                                type="number"
+                                name="squareFeet"
+                                id="squareFeet" />
+                            <input
+                                className="border p-2 rounded" placeholder="Year Built"
+                                type="number"
+                                name="yearBuilt"
+                                id="yearBuilt" />
+                            <input
+                                className="border p-2 rounded" placeholder="Parking Spaces"
+                                type="number"
+                                name="parkingSpace"
+                                id="parkingSpace" />
+                            <input
+                                className="border p-2 rounded" placeholder="Pet Policy"
+                                name="petPolicy"
+                                id="petPolicy" />
                         </div>
                     </div>
 
                     <div>
                         <h3 className="text-xl font-semibold mb-4">Pricing & Terms</h3>
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                            <input className="border p-2 rounded" placeholder="Monthly Rent ($)" type="number" />
-                            <input className="border p-2 rounded" placeholder="Security Deposit ($)" type="number" />
+                            <input
+                                className="border p-2 rounded" placeholder="Monthly Rent ($)"
+                                type="number"
+                                name="monthlyPrice"
+                                id="monthlyPrice" />
+                            <input
+                                className="border p-2 rounded" placeholder="Security Deposit ($)" type="number"
+                                name="deposit"
+                                id="deposit" />
                             <div>
-                                <select className="w-full border p-2 rounded">
+                                <select
+                                    id="leaseTerm"
+                                    name="leaseTerm"
+                                    value={leaseTerm}
+                                    onChange={(e) => setLeaseTerm(e.target.value)}
+                                    className="w-full border p-2 rounded">
                                     <option>Select lease term</option>
                                     <option>Monthly</option>
                                     <option>Yearly</option>
                                     <option>Flexible</option>
                                 </select>
                             </div>
-                            <input className="border p-2 rounded" placeholder="Available Date" type="date" />
+                            <input
+                                className="border p-2 rounded" placeholder="Available Date"
+                                type="date"
+                                name="availableDate"
+                                id="availableDate" />
                         </div>
                     </div>
                     {/* Photos */}
@@ -147,15 +290,11 @@ export default function OwnerListingForm() {
                         <input
                             type="file"
                             multiple
+                            name="images"
+                            id="images"
                             accept="image/*"
                             className="border p-2 rounded w-full"
-                            onChange={(e) => {
-                                const files = Array.from(e.target.files);
-                                const validFiles = files.filter(file => file.type.startsWith("image/"));
-
-                                // Append new files to existing photos
-                                setPhotos(prev => [...prev, ...validFiles]);
-                            }}
+                            onChange={handlePhotoChange}
                         />
 
                         {/* Preview */}
@@ -203,7 +342,7 @@ export default function OwnerListingForm() {
 
                     <div className="flex justify-end gap-4">
                         <button type="button" className="bg-gray-200 px-4 py-2 rounded">Save as Draft</button>
-                        <button type="submit" className="bg-blue-600 text-white px-6 py-2 rounded">Publish Property</button>
+                        <button type="submit" className="bg-[#2980B9] hover:bg-[#1F618D] text-white px-6 py-2 rounded">Publish Property</button>
                     </div>
                 </form>
             </section>

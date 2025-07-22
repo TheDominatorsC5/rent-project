@@ -5,6 +5,7 @@ import DetailBar from "../../components/Dashboards/DetailBar";
 import { useEffect, useState } from "react";
 import { apiClient } from "../../api/client";
 import { useNavigate } from "react-router";
+import SubmitButton from "../../components/SubmitButton";
 
 export default function PendingReviews() {
     const navigate = useNavigate()
@@ -37,7 +38,7 @@ export default function PendingReviews() {
                 ) : (
                     <ul className="space-y-4 ">
                         {listings.map((listing) => (
-                            <li style={{display: listing.status == 'pending' ? 'flex':'none'}} key={listing.id} className="border p-4 rounded shadow flex justify-between items-center">
+                            <li style={{display: listing.status == 'pending' ? 'flex':'none'}} key={listing.id} className="border p-4 rounded shadow flex justify-between items-baseline-last">
                                 <div className="md:flex md:justify-between md:w-2/3">
                                     <h3 className="font-bold">{listing.propertyTitle}</h3>
                                     <p>{listing.description}</p>

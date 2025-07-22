@@ -4,8 +4,13 @@ import Footer from "../components/Footer";
 import SummaryCard from "../components/Dashboards/SummaryCard";
 import { CheckCircle, FileText, Eye, MessageCircle, Plus, SquarePenIcon, User } from "lucide-react";
 import { Link } from "react-router";
+import useSWR from "swr";
+import { apiFetcher } from "../api/client";
 
 export default function OwnerDashboard() {
+    const { data, isLoading, error } = useSWR("/api/rent/property/landlord/properties", apiFetcher);
+    console.log('listing:', data)
+
     const [listings, setListings] = useState([
         {
             id: 1,
@@ -95,27 +100,27 @@ export default function OwnerDashboard() {
                         <h3 className="font-semibold text-lg">Your Property Listings</h3>
                         <Link to="/owner-listing-form">
                             <button className="flex items-center gap-1 text-sm text-white px-3 py-1 rounded bg-[#2980B9] hover:bg-[#1F618D]">
-                                <Plus size={18} /> Request New Listing
+                                <Plus size={18} /> Add New Listing
                             </button>
                         </Link>
                     </div>
                     <div className="divide-y">
-                        {listings.map((listing) => (
+                        {data?.map((listing) => (
                             <div key={listing.id} className="md:flex md:justify-between items-start gap-4 p-4 border-[#7F8C8D]">
                                 <div className="flex gap-4 mb-2">
                                     <div className="w-16 h-16 bg-gray-200 rounded flex items-center justify-center text-xs text-gray-500">
-                                        Image
+                                        <img src={listing.images[0]} alt="" />
                                     </div>
                                     <div>
-                                        <h4 className="font-medium">{listing.title}</h4>
-                                        <p className="text-sm text-gray-500">{listing.address}</p>
+                                        <h4 className="font-medium">{listing.propertyTitle} <span className="">Status</span></h4>
+                                        <p className="text-sm text-gray-500">{listing.streetAddress}</p>
                                         <div className="text-sm text-gray-600 flex flex-wrap gap-2 mt-1">
-                                            <span className="font-medium">{listing.status}</span>
+                                            <span className="font-medium"><span className="mr-2">Status:</span>{listing.status}</span>
                                             <span className="text-gray-400">•</span>
-                                            <span>Listed: {listing.date}</span>
+                                            <span>Listed: {'01/01/2025'}</span>
                                         </div>
                                         <div className="flex gap-2 mt-2">
-                                            <button className="text-sm text-white bg-[#2980B9] hover:bg-[#1F618D] px-3 py-1 rounded flex gap-2 items-center"><SquarePenIcon size={16} className="" /> Request Update</button>
+                                            <button className="text-sm text-white bg-[#2980B9] hover:bg-[#1F618D] px-3 py-1 rounded flex gap-2 items-center"><SquarePenIcon size={16} className="" /> Update Listing</button>
                                             <button className="text-sm text-white bg-[#2980B9] hover:bg-[#1F618D] px-3 py-1 rounded flex gap-2 items-center"><Eye size={16} className="" /> View Listing</button>
                                         </div>
                                     </div>
@@ -126,6 +131,9 @@ export default function OwnerDashboard() {
                                 </div>
                             </div>
                         ))}
+                        <div style={{display: data === undefined || data.length===0 ? 'flex':'none',}} className="h-[200px] justify-center items-center" >
+                            <h3 className="text-2xl font-bold ">No Available Listing</h3>
+                        </div>
                     </div>
                 </div>
 
