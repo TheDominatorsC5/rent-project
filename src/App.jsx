@@ -20,6 +20,7 @@ import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
 import { AdminDataProvider } from "./context/AdminDataContext";
 import ListingGallery from "./pages/ListingGallery";
+import OwnerContact from "./pages/OwnerContact";
 
 
   const rentingAppRouther = createBrowserRouter([
@@ -43,6 +44,7 @@ import ListingGallery from "./pages/ListingGallery";
     { path: '/listing-gallery', element: <ListingGallery /> },
     { path: '/contact', element: <Contact /> },
     { path: '*', element: <NotFound /> },
+    { path: '/owner-contact', element: <OwnerContact />},
 
   ]);
 
