@@ -2,7 +2,7 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import {
     MapPin, CarFront, WavesLadder, ShieldCheck, MessageSquare, Cable,
-    Star, UserRound, Check, Images, Heart, Snowflake, ChevronLeft, Dumbbell, WifiHigh,
+    Star, User, Check, Images, Heart, Snowflake, ChevronLeft, Dumbbell, WifiHigh,
 } from "lucide-react";
 import { Link } from "react-router-dom"; // ✅ make sure it's from react-router-dom
 import { useLocation } from "react-router-dom";
@@ -33,7 +33,14 @@ export default function RentListingDetails() {
     }
 
     const ownerNavigationHandler = () => {
-        navigate("/owner-contact");
+        const token = localStorage.getItem("ACCESS_TOKEN");
+        if (token === null) {
+            navigate("/login");
+        }
+        else {
+            navigate("/owner-contact");
+        }
+
     }
 
     return (
@@ -142,7 +149,7 @@ export default function RentListingDetails() {
                     {/* Owner info */}
                     <p className="text-lg mt-5 font-medium">Property Owner</p>
                     <div className="flex items-center gap-4 mt-3">
-                        <UserRound className="rounded-full border-2 border-zinc-300 size-14 p-2" />
+                        <User className="rounded-full border-2 bg-black stroke-white size-14 p-2" />
                         <div>
                             <p className="text-base font-medium">{property.landlordFullname}</p>
                             <p className="text-sm text-[#7F8C8D]">Landlord</p>
@@ -151,10 +158,10 @@ export default function RentListingDetails() {
                     </div>
 
                     {/* <Link to="/owner-dashboard"> */}
-                        <button onClick={ownerNavigationHandler} 
+                    <button onClick={ownerNavigationHandler}
                         className="w-full mt-3 flex items-center justify-center bg-[#2980B9] text-white py-2 rounded-lg hover:bg-[#1F618D] transition font-medium text-lg">
-                            <MessageSquare className="mr-2" /> Contact Property Owner
-                        </button>
+                        <MessageSquare className="mr-2" /> Contact Property Owner
+                    </button>
                     {/* </Link> */}
 
 
