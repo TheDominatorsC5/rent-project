@@ -68,7 +68,6 @@ export default function UpdateListingForm() {
         availableDate: property.availableDate,
         amenities: property.amenities,
         images: property.images,
-        propertyType: property.propertyType,
     });
 
     const [productId, setProductId] = useState(null)
