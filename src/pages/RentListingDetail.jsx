@@ -1,8 +1,8 @@
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import {
-    MapPin, CarFront, WavesLadder, ShieldCheck, Phone, MessageSquare, Cable,
-    Star, UserRound, Check, Images, Heart, Wind, ChevronLeft, Dumbbell, WifiHigh,
+    MapPin, CarFront, WavesLadder, ShieldCheck, MessageSquare, Cable,
+    Star, UserRound, Check, Images, Heart, Snowflake, ChevronLeft, Dumbbell, WifiHigh,
 } from "lucide-react";
 import { Link } from "react-router-dom"; // ✅ make sure it's from react-router-dom
 import { useLocation } from "react-router-dom";
@@ -16,7 +16,6 @@ export default function RentListingDetails() {
     const navigate = useNavigate();
     const navigationHandler = () => {
         navigate("/listing-gallery", { state: { images: property.images } }
-
         );
     }
 
@@ -33,6 +32,10 @@ export default function RentListingDetails() {
         }
     }
 
+    const ownerNavigationHandler = () => {
+        navigate("/owner-contact");
+    }
+
     return (
         <>
             <Navbar />
@@ -40,11 +43,11 @@ export default function RentListingDetails() {
             <div className="w-[90%] max-w-[1200px] mx-auto my-6 font-[outfit]">
                 {/* Breadcrumb */}
                 <Link to={"/rent-listings"}>
-                <button className="flex items-center text-sm sm:text-base md:text-xl font-medium text-[#7F8C8D] hover:text-black cursor-pointer">
-                    <ChevronLeft className="mr-2" /> All Listings
-                </button>
+                    <button className="flex items-center text-sm sm:text-base md:text-xl text-[#7F8C8D] hover:text-black cursor-pointer">
+                        <ChevronLeft className="mr-2 size-10" /> All Listings
+                    </button>
                 </Link>
-                
+
 
                 {/* Gallery */}
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 my-6 sm:my-10 relative">
@@ -96,7 +99,7 @@ export default function RentListingDetails() {
                             <button onClick={userNavigationHandler}>
                                 <Heart className="border border-zinc-300 fill-zinc-200 bg-white size-10 rounded-xl p-2 hover:fill-red-600 stroke-0" />
                             </button>
-                            
+
                         </div>
 
                     </div>
@@ -126,7 +129,7 @@ export default function RentListingDetails() {
                         <p className="flex items-center"><WavesLadder className="mr-2" /> Pool</p>
                         <p className="flex items-center"><ShieldCheck className="mr-2" /> Security</p> */}
                         {
-                            property.amenities.map(amenity => (<p className="flex items-center">{amenity=="Parking"? <CarFront className="mr-2" /> : amenity=="Pool" ? <WavesLadder className="mr-2" /> : amenity=="Security" ? <ShieldCheck className="mr-2" /> : amenity=="Wifi" ? <WifiHigh className="mr-2" /> : amenity=="Generator" ? <Cable className="mr-2" /> : amenity=="Air Conditioning" ? <Wind className="mr-2" /> : amenity=="Gym" ? <Dumbbell className="mr-2" /> : ""} {amenity}</p>))
+                            property.amenities.map(amenity => (<p className="flex items-center">{amenity == "Parking" ? <CarFront className="mr-2" /> : amenity == "Pool" ? <WavesLadder className="mr-2" /> : amenity == "Security" ? <ShieldCheck className="mr-2" /> : amenity == "Wifi" ? <WifiHigh className="mr-2" /> : amenity == "Generator" ? <Cable className="mr-2" /> : amenity == "Air Conditioning" ? <Snowflake className="mr-2" /> : amenity == "Gym" ? <Dumbbell className="mr-2" /> : ""} {amenity}</p>))
                         }
                     </div>
                 </div>
@@ -147,16 +150,13 @@ export default function RentListingDetails() {
                         </div>
                     </div>
 
-                    {/* Action buttons */}
-                    <button className="w-full mt-3 flex items-center justify-center bg-[#2980B9] text-white py-2 rounded-lg hover:bg-[#1F618D] transition">
-                        <MessageSquare className="mr-2" /> Send Message
-                    </button>
-
-                    <Link to="/owner-dashboard">
-                        <button className="w-full mt-3 flex items-center justify-center bg-[#27AE60] text-white py-2 rounded-lg hover:bg-green-700 transition font-semibold text-lg">
-                            <Phone className="mr-2" /> Call Now
+                    {/* <Link to="/owner-dashboard"> */}
+                        <button onClick={ownerNavigationHandler} 
+                        className="w-full mt-3 flex items-center justify-center bg-[#2980B9] text-white py-2 rounded-lg hover:bg-[#1F618D] transition font-medium text-lg">
+                            <MessageSquare className="mr-2" /> Contact Property Owner
                         </button>
-                    </Link>
+                    {/* </Link> */}
+
 
                     {/* Safety tips */}
                     <div className="mt-6 border-t pt-4 text-sm text-[#7F8C8D]">

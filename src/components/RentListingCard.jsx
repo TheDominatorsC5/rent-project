@@ -1,4 +1,3 @@
-import { Link } from "react-router";
 import { MapPin, Check } from "lucide-react";
 import { useNavigate } from "react-router";
 
@@ -18,12 +17,12 @@ export default function RentListingCard({property}) {
 
             <div className="bg-white w-[90%] mx-auto my-4">
                 <div className="flex justify-between">
-                    <h2 className="text-lg md:text-xl font-semibold text-black">{property.propertyTitle}</h2>
+                    <h2 className="text-lg md:text-xl font-medium text-black">{property.propertyTitle}</h2>
                     <p className="flex flex-row items-center justify-center rounded-full bg-[#27AE60] py-1 px-3 text-white">
                         <Check className="mr-1 p-1" /> Verified
                     </p>
                 </div>
-                <p className="text-black font-semibold text-sm md:text-lg mt-2">
+                <p className="text-black font-normal text-sm md:text-lg mt-2">
                     {property.propertyType}
                 </p>
                 <div className="flex mt-2 text-[#7F8C8D] font-semibold">
