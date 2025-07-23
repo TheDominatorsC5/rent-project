@@ -1,13 +1,15 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import SummaryCard from "../components/Dashboards/SummaryCard";
-import { HeartIcon, EyeIcon, SearchIcon, Forward, TrashIcon, User } from "lucide-react";
+import { HeartIcon, EyeIcon, SearchIcon, Forward, TrashIcon, User, List } from "lucide-react";
 import useSWR from "swr";
-import { apiFetcher } from "../api/client";
+import { apiClient, apiFetcher } from "../api/client";
+import { useNavigate } from "react-router";
 
 export default function UserDashboard() {
-    const {data, isLoading, error} = useSWR("/api/rent/property/favorite/all", apiFetcher);
+    const { data, isLoading, error } = useSWR("/api/rent/property/favorite/all", apiFetcher);
+
     console.log('favorites:', data)
 
     const [savedListings, setSavedListings] = useState([
@@ -15,9 +17,36 @@ export default function UserDashboard() {
         { id: 2, title: "Luxury Studio", location: "456 Oak Avenue", rooms: 1, bath: 1, price: 1800 },
     ]);
 
+    const [currentListings, setCurrentListings] = useState([])
+    useEffect(() => {
+        console.log('fetch all')
+        apiClient.get('/api/rent/property/all')
+            .then((res) => {
+                const allListings = res.data;
+                let current = [];
+
+                for (let i = allListings.length - 1; i >= allListings.length - 2; i--) {
+                    current.push(allListings[i]);
+                }
+
+                setCurrentListings(current);
+                console.log('current listings:', current)
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+    }, []);
+
+    const navigate = useNavigate();
+    const viewListingHandler = (property) => {
+        navigate('/rent-listing-detail', { state: { property: property } });
+    }
+
     const handleRemove = (id) => {
-        const updatedListings = savedListings.filter((listing) => listing.id !== id);
-        setSavedListings(updatedListings);
+        apiClient.delete(`/api/api/rent/ptoperty/favorite/delete${id}`)
+        .then((res) => {})
+        .catch((error) => {})
+        
     };
 
     const searchAlerts = [
@@ -40,14 +69,14 @@ export default function UserDashboard() {
                             Welcome back <span className="font-medium">User Name</span>! Here's what's happening with your saved listings.
                         </p>
                     </div>
-                    <div className="flex items-center space-x-2">
+                    {/* <div className="flex items-center space-x-2">
                         <span className="text-xl text-gray-500"><User /></span>
                         <p>User Name</p>
-                    </div>
+                    </div> */}
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-                    <SummaryCard title="Saved Listings" count={savedListings.length} icon={<HeartIcon className="text-red-500 bg-gray-200 p-1 rounded-sm size-8 border-2 border-[#7F8C8D] hover:bg-[#2980B9]" />} />
+                    <SummaryCard title="Saved Listings" count={data?.length} icon={<HeartIcon className="text-red-500 bg-gray-200 p-1 rounded-sm size-8 border-2 border-[#7F8C8D] hover:bg-[#2980B9]" />} />
                     <SummaryCard title="Recent Views" count={12} icon={<EyeIcon className="text-blue-500 bg-gray-200 p-1 rounded-sm size-8 border-2 border-[#7F8C8D] hover:bg-[#2980B9]" />} />
                     <SummaryCard title="Active Searches" count={3} icon={<SearchIcon className="text-green-500 bg-gray-200 p-1 rounded-sm size-8 border-2 border-[#7F8C8D] hover:bg-[#2980B9]" />} />
                 </div>
@@ -60,22 +89,23 @@ export default function UserDashboard() {
                         </div>
 
                         <div className="divide-y">
-                            {savedListings.map((listing) => (
+                            {data?.map((listing) => (
                                 <div key={listing.id} className="flex items-start p-4 gap-4 border-[#7F8C8D]">
                                     <img
-                                        src={listing.image || "/placeholder.jpg"}
+                                        src={listing.images[0] || "/placeholder.jpg"}
                                         alt="Apartment thumbnail"
                                         className="w-20 h-20 object-cover rounded bg-gray-200"
                                     />
                                     <div className="flex-1">
-                                        <h4 className="font-semibold">{listing.title}</h4>
+                                        <h4 className="font-semibold">{listing.propertyTitle}</h4>
                                         <p className="text-sm text-gray-500">{listing.location}</p>
-                                        <p className="text-sm">{listing.rooms} bed • {listing.bath} bath • <span className="font-bold">${listing.price}/month</span></p>
+                                        <p className="text-sm">{listing.bedrooms} bed • {listing.bathrooms} bath • <span className="font-bold">${listing.monthlyPrice}/month</span></p>
                                     </div>
                                     <div className="flex gap-2 text-xl">
-                                        <a href={`/listings/${listing.id}`}>{<HeartIcon className="text-gray-500 bg-gray-50 p-1 rounded-sm size-8 border-1 border-[#7F8C8D]" />}</a>
+                                        {/* <a href={`/listings/${listing.id}`}>{<HeartIcon className="text-gray-500 bg-gray-50 p-1 rounded-sm size-8 border-1 border-[#7F8C8D]" />}</a> */}
                                         <button onClick={() => handleRemove(listing.id)}>{<TrashIcon className="text-gray-500 hover:text-[#E74C3C] hover:border-[#E74C3C] bg-gray-100 p-1 rounded-sm size-8 border-2 border-[#7F8C8D]" />}</button>
-                                        <a href={`/listings/${listing.id}`}>{<Forward className="text-gray-500 hover:text-[#2980B9] bg-gray-100 p-1 rounded-sm size-8 border-2 border-[#7F8C8D] hover:border-[#2980B9]" />}</a>
+
+                                        <span onClick={() => viewListingHandler(listing)}>{<Forward className="text-gray-500 hover:text-[#2980B9] bg-gray-100 p-1 rounded-sm size-8 border-2 border-[#7F8C8D] hover:border-[#2980B9]" />}</span>
                                     </div>
                                 </div>
                             ))}
@@ -86,17 +116,17 @@ export default function UserDashboard() {
                         <div className="bg-white border rounded shadow-sm p-4 space-y-4 mb-6">
                             <h3 className="font-semibold">Search Alerts</h3>
                             <hr />
-                            {searchAlerts.map((alert) => (
+                            {currentListings.map((alert) => (
                                 <div key={alert.id} className="space-y-1">
                                     <div className="flex justify-between items-end border px-2 py-3 rounded">
                                         <span>
-                                            <p className="font-medium">{alert.keyword}</p>
-                                            <p className="text-sm text-gray-500">{alert.priceRange} • {alert.bedrooms}+ bedrooms</p>
-                                            <p className="text-sm text-green-600">{alert.newMatches} new matches</p>
+                                            <p className="font-medium">{alert.propertyTitle}</p>
+                                            <p className="text-sm text-gray-500">{alert.monthlyPrice} • {alert.bedrooms}+ bedrooms</p>
+                                            <p className="text-sm text-green-600">{alert.propertyType} new matches</p>
                                         </span>
-                                        <span>
+                                        <span onClick={() => viewListingHandler(alert)}>
                                             {/* <img
-                                        src={"/placeholder.jpg"}
+                                        src={alert.images[0]}
                                         alt="Apartment thumbnail"
                                         className="w-20 h-20 object-cover rounded bg-gray-200"
                                     /> */}

@@ -80,8 +80,8 @@ export default function OwnerDashboard() {
                         <p className="text-gray-600">Manage your property listings and verification status</p>
                     </div>
                     <div className="flex items-center space-x-2">
-                        <span className="text-xl text-gray-500"><User /></span>
-                        <p>User Name</p>
+                        {/* <span className="text-xl text-gray-500"><User /></span>
+                        <p>User Name</p> */}
                     </div>
                 </div>
 
@@ -109,7 +109,7 @@ export default function OwnerDashboard() {
                     <div className="flex justify-between items-center p-4 border-b border-[#7F8C8D]">
                         <h3 className="font-semibold text-lg">Your Property Listings</h3>
                         <Link to="/owner-listing-form">
-                            <button className="flex items-center gap-1 text-sm text-white px-3 py-1 rounded bg-[#2980B9] hover:bg-[#1F618D]">
+                            <button className="flex items-center gap-1 text-sm text-white px-3 py-2 rounded bg-[#2980B9] hover:bg-[#1F618D]">
                                 <Plus size={18} /> Add New Listing
                             </button>
                         </Link>

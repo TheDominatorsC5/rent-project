@@ -116,7 +116,7 @@ export default function OwnerListingForm() {
                                     type="text"
                                     id="propertyTitle"
                                     name="propertyTitle"
-                                    className="border border-gray-300 p-2 rounded w-full" />
+                                    className="border border-[#7F8C8D] shadow-sm p-2 rounded w-full" />
                             </div>
                             <div>
                                 <label className="block font-medium mb-1">Property Type</label>
@@ -165,7 +165,7 @@ export default function OwnerListingForm() {
                                 rows="4"
                                 id="description"
                                 name="description"
-                                className="w-full border border-gray-300 rounded p-2"
+                                className="w-full border border-[#7F8C8D] shadow-sm rounded p-2"
                                 placeholder="Describe your property..."
                             />
                         </div>
@@ -221,32 +221,32 @@ export default function OwnerListingForm() {
                         <h3 className="text-xl font-semibold mb-4">Property Details</h3>
                         <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                             <input
-                                className="border p-2 rounded" placeholder="Bedrooms"
+                                className="border border-[#7F8C8D] shadow-sm p-2 rounded" placeholder="Bedrooms"
                                 type="number"
                                 name="bedrooms"
                                 id="bedrooms" />
                             <input
-                                className="border p-2 rounded" placeholder="Bathrooms"
+                                className="border border-[#7F8C8D] shadow-sm p-2 rounded" placeholder="Bathrooms"
                                 type="number"
                                 name="bathrooms"
                                 id="bathrooms" />
                             <input
-                                className="border p-2 rounded" placeholder="Square Feet"
+                                className="border border-[#7F8C8D] shadow-sm p-2 rounded" placeholder="Square Feet"
                                 type="number"
                                 name="squareFeet"
                                 id="squareFeet" />
                             <input
-                                className="border p-2 rounded" placeholder="Year Built"
+                                className="border border-[#7F8C8D] shadow-sm p-2 rounded" placeholder="Year Built"
                                 type="number"
                                 name="yearBuilt"
                                 id="yearBuilt" />
                             <input
-                                className="border p-2 rounded" placeholder="Parking Spaces"
+                                className="border border-[#7F8C8D] shadow-sm p-2 rounded" placeholder="Parking Spaces"
                                 type="number"
                                 name="parkingSpace"
                                 id="parkingSpace" />
                             <input
-                                className="border p-2 rounded" placeholder="Pet Policy"
+                                className="border border-[#7F8C8D] shadow-sm p-2 rounded" placeholder="Pet Policy"
                                 name="petPolicy"
                                 id="petPolicy" />
                         </div>
@@ -256,12 +256,12 @@ export default function OwnerListingForm() {
                         <h3 className="text-xl font-semibold mb-4">Pricing & Terms</h3>
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                             <input
-                                className="border p-2 rounded" placeholder="Monthly Rent ($)"
+                                className="border border-[#7F8C8D] shadow-sm p-2 rounded" placeholder="Monthly Rent ($)"
                                 type="number"
                                 name="monthlyPrice"
                                 id="monthlyPrice" />
                             <input
-                                className="border p-2 rounded" placeholder="Security Deposit ($)" type="number"
+                                className="border border-[#7F8C8D] shadow-sm p-2 rounded" placeholder="Security Deposit ($)" type="number"
                                 name="deposit"
                                 id="deposit" />
                             <div>
@@ -270,7 +270,7 @@ export default function OwnerListingForm() {
                                     name="leaseTerm"
                                     value={leaseTerm}
                                     onChange={(e) => setLeaseTerm(e.target.value)}
-                                    className="w-full border p-2 rounded">
+                                    className="w-full border border-[#7F8C8D] shadow-sm p-2 rounded">
                                     <option>Select lease term</option>
                                     <option>Monthly</option>
                                     <option>Yearly</option>
@@ -278,7 +278,7 @@ export default function OwnerListingForm() {
                                 </select>
                             </div>
                             <input
-                                className="border p-2 rounded" placeholder="Available Date"
+                                className="border border-[#7F8C8D] shadow-sm p-2 rounded" placeholder="Available Date"
                                 type="date"
                                 name="availableDate"
                                 id="availableDate" />
@@ -293,7 +293,7 @@ export default function OwnerListingForm() {
                             name="images"
                             id="images"
                             accept="image/*"
-                            className="border p-2 rounded w-full"
+                            className="border border-[#7F8C8D] shadow-sm p-2 rounded w-full"
                             onChange={handlePhotoChange}
                         />
 
