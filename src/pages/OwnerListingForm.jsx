@@ -4,7 +4,8 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { apiClient } from "../api/client";
 import { useNavigate } from "react-router";
-import SubmitButton from "../components/SubmitButton";
+import { Link } from "react-router";
+import { CheveronLeft } from "lucide-react";
 
 const propertyTypes = [
     "Apartment",
@@ -41,12 +42,15 @@ export default function OwnerListingForm() {
     const [selectedType, setSelectedType] = useState("");
     const [leaseTerm, setLeaseTerm] = useState("");
 
+    const [isPublishing, setPublish] = useState(false)
+
     const handlePhotoChange = (e) => {
         const files = Array.from(e.target.files);
         setPhotos([...photos, ...files]);
     };
 
     const handleSubmit = async (e) => {
+        setPublish(true)
         e.preventDefault();
 
         const form = e.target;
@@ -69,11 +73,13 @@ export default function OwnerListingForm() {
 
             if (response.data.success) {
                 navigate('/owner-dashboard');
+                setPublish(false)
                 console.log("Submitted successfully");
                 // Reset form or show success message
             }
         } catch (error) {
             console.error("Upload failed:", error);
+            setPublish(false)
         }
     };
 
@@ -102,7 +108,7 @@ export default function OwnerListingForm() {
                         <h2 className="text-2xl font-bold">Add New Property</h2>
                         <p className="text-gray-600">Fill out the form below to list your property</p>
                     </div>
-                    <button className="text-blue-600 underline">Back to Properties</button>
+                    <Link to="/rent-listings" className="text-blue-600 underline flex"><span><CheveronLeft/></span><span>Back to Properties</span></Link>
                 </div>
 
                 <form onSubmit={handleSubmit} className="space-y-8">
@@ -113,6 +119,7 @@ export default function OwnerListingForm() {
                             <div>
                                 <label htmlFor="propertyTitle" className="block font-medium mb-1">Property Title</label>
                                 <input
+                                    required
                                     type="text"
                                     id="propertyTitle"
                                     name="propertyTitle"
@@ -162,6 +169,7 @@ export default function OwnerListingForm() {
                         <div className="mt-4">
                             <label className="block font-medium mb-1">Description</label>
                             <textarea
+                                required
                                 rows="4"
                                 id="description"
                                 name="description"
@@ -176,6 +184,7 @@ export default function OwnerListingForm() {
                         <div>
                             <label className="block font-medium mb-1">Street Address</label>
                             <input
+                                required
                                 type="text"
                                 name="streetAddress"
                                 id="streetAddress"
@@ -185,6 +194,7 @@ export default function OwnerListingForm() {
                             <div>
                                 <label className="block font-medium mb-1">City</label>
                                 <input
+                                    required
                                     type="text"
                                     name="city"
                                     id="city"
@@ -193,6 +203,7 @@ export default function OwnerListingForm() {
                             <div>
                                 <label className="block font-medium mb-1">State/Region</label>
                                 <input
+                                    required
                                     type="text"
                                     name="region"
                                     id="region"
@@ -201,6 +212,7 @@ export default function OwnerListingForm() {
                             <div>
                                 <label className="block font-medium mb-1">GPS Address</label>
                                 <input
+                                    required
                                     type="text"
                                     name="gpsAddress"
                                     id="gpsAddress"
@@ -209,6 +221,7 @@ export default function OwnerListingForm() {
                             <div>
                                 <label className="block font-medium mb-1">Country</label>
                                 <input
+                                    required
                                     type="text"
                                     name="country"
                                     id="country"
@@ -221,31 +234,37 @@ export default function OwnerListingForm() {
                         <h3 className="text-xl font-semibold mb-4">Property Details</h3>
                         <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                             <input
+                                required
                                 className="border border-[#7F8C8D] shadow-sm p-2 rounded" placeholder="Bedrooms"
                                 type="number"
                                 name="bedrooms"
                                 id="bedrooms" />
                             <input
+                                required
                                 className="border border-[#7F8C8D] shadow-sm p-2 rounded" placeholder="Bathrooms"
                                 type="number"
                                 name="bathrooms"
                                 id="bathrooms" />
                             <input
+                                required
                                 className="border border-[#7F8C8D] shadow-sm p-2 rounded" placeholder="Square Feet"
                                 type="number"
                                 name="squareFeet"
                                 id="squareFeet" />
                             <input
+                                required
                                 className="border border-[#7F8C8D] shadow-sm p-2 rounded" placeholder="Year Built"
                                 type="number"
                                 name="yearBuilt"
                                 id="yearBuilt" />
                             <input
+                                required
                                 className="border border-[#7F8C8D] shadow-sm p-2 rounded" placeholder="Parking Spaces"
                                 type="number"
                                 name="parkingSpace"
                                 id="parkingSpace" />
                             <input
+                                required
                                 className="border border-[#7F8C8D] shadow-sm p-2 rounded" placeholder="Pet Policy"
                                 name="petPolicy"
                                 id="petPolicy" />
@@ -259,15 +278,18 @@ export default function OwnerListingForm() {
                                 className="border border-[#7F8C8D] shadow-sm p-2 rounded" placeholder="Monthly Rent ($)"
                                 type="number"
                                 name="monthlyPrice"
-                                id="monthlyPrice" />
+                                id="monthlyPrice"
+                                required />
                             <input
                                 className="border border-[#7F8C8D] shadow-sm p-2 rounded" placeholder="Security Deposit ($)" type="number"
                                 name="deposit"
-                                id="deposit" />
+                                id="deposit"
+                                required />
                             <div>
                                 <select
                                     id="leaseTerm"
                                     name="leaseTerm"
+                                    required
                                     value={leaseTerm}
                                     onChange={(e) => setLeaseTerm(e.target.value)}
                                     className="w-full border border-[#7F8C8D] shadow-sm p-2 rounded">
@@ -281,7 +303,8 @@ export default function OwnerListingForm() {
                                 className="border border-[#7F8C8D] shadow-sm p-2 rounded" placeholder="Available Date"
                                 type="date"
                                 name="availableDate"
-                                id="availableDate" />
+                                id="availableDate"
+                                required />
                         </div>
                     </div>
                     {/* Photos */}
@@ -292,6 +315,7 @@ export default function OwnerListingForm() {
                             multiple
                             name="images"
                             id="images"
+                            required
                             accept="image/*"
                             className="border border-[#7F8C8D] shadow-sm p-2 rounded w-full"
                             onChange={handlePhotoChange}
@@ -342,7 +366,7 @@ export default function OwnerListingForm() {
 
                     <div className="flex justify-end gap-4">
                         <button type="button" className="bg-gray-200 px-4 py-2 rounded">Save as Draft</button>
-                        <button type="submit" className="bg-[#2980B9] hover:bg-[#1F618D] text-white px-6 py-2 rounded">Publish Property</button>
+                        <button type="submit" className={`bg-[#2980B9] hover:bg-[#1F618D] text-white px-6 py-2 rounded ${isPublishing ? "animate-pulse transition duration-300":""}`}>{isPublishing ? "Publishing..." : "Publish Property"}</button>
                     </div>
                 </form>
             </section>

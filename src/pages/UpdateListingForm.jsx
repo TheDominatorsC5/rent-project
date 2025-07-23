@@ -3,7 +3,7 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { apiClient } from "../api/client";
 import { useLocation, useNavigate } from "react-router";
-// import SubmitButton from "../components/SubmitButton";
+import { Link } from "react-router";
 
 const propertyTypes = [
     "Apartment",
@@ -39,14 +39,17 @@ export default function UpdateListingForm() {
     const property = location.state.property;
 
     const [photos, setPhotos] = useState([]);
-    const [selectedType, setSelectedType] = useState("");
-    const [leaseTerm, setLeaseTerm] = useState("");
+    const [selectedType, setSelectedType] = useState(property.propertyType);
+    const [leaseTerm, setLeaseTerm] = useState(property.leaseTerm);
+
+    const [isUpdating, setUpdate] = useState(false)
 
     const [propertyTitle, setPropertyTitle] = useState(property.propertyTitle);
 
     const [formData, setFormData] = useState({
         id: property.id,
         propertyTitle: property.propertyTitle,
+        propertyType: property.propertyType,
         description: property.description,
         streetAddress: property.streetAddress,
         city: property.city,
@@ -81,6 +84,7 @@ export default function UpdateListingForm() {
     };
 
     const handleSubmit = async (e) => {
+        setUpdate(true)
         e.preventDefault();
 
         const form = e.target;
@@ -94,7 +98,7 @@ export default function UpdateListingForm() {
         });
 
         try {
-            const response = await apiClient.post("/api/rent/property/create", formData, {
+            const response = await apiClient.patch(`/api/rent/property/update/${property.id}`, formData, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem("ACCESS_TOKEN")}`,
                     "Content-Type": "multipart/form-data",
@@ -103,11 +107,13 @@ export default function UpdateListingForm() {
 
             if (response.data.success) {
                 navigate('/owner-dashboard');
+                setUpdate(false)
                 console.log("Submitted successfully");
                 // Reset form or show success message
             }
         } catch (error) {
             console.error("Upload failed:", error);
+            setUpdate(false)
         }
     };
 
@@ -117,10 +123,10 @@ export default function UpdateListingForm() {
             <section className="flex-1 max-w-6xl mx-auto p-4 space-y-6">
                 <div className="mb-6 flex justify-between items-center">
                     <div>
-                        <h2 className="text-2xl font-bold">Add New Property</h2>
+                        <h2 className="text-2xl font-bold">Update Property</h2>
                         <p className="text-gray-600">Fill out the form below to list your property</p>
                     </div>
-                    <button className="text-blue-600 underline">Back to Properties</button>
+                    <Link to="/rent-listings" className="text-blue-600 underline">Back to Properties</Link>
                 </div>
 
                 <form onSubmit={handleSubmit} className="space-y-8">
@@ -144,12 +150,12 @@ export default function UpdateListingForm() {
                                     <select
                                         id="propertyType"
                                         name="propertyType"
-                                        value={selectedType}
-                                        onChange={(e) => setSelectedType(e.target.value)}
+                                        value={formData.propertyType}
+                                        onChange={handleChange}
                                         className="border border-gray-300 rounded p-2 w-full"
                                         required
                                     >
-                                        <option value="">-- Choose a type --</option>
+                                        <option value={formData.propertyType}>{formData.propertyType}</option>
                                         {propertyTypes.map((type) => (
                                             <option key={type} value={type}>
                                                 {type}
@@ -163,6 +169,9 @@ export default function UpdateListingForm() {
                         <div className="mt-4">
                             <label className="block font-medium mb-1">Description</label>
                             <textarea
+                                required
+                                value={formData.description}
+                                onChange={handleChange}
                                 rows="4"
                                 id="description"
                                 name="description"
@@ -177,6 +186,9 @@ export default function UpdateListingForm() {
                         <div>
                             <label className="block font-medium mb-1">Street Address</label>
                             <input
+                                required
+                                value={formData.streetAddress}
+                                onChange={handleChange}
                                 type="text"
                                 name="streetAddress"
                                 id="streetAddress"
@@ -186,6 +198,9 @@ export default function UpdateListingForm() {
                             <div>
                                 <label className="block font-medium mb-1">City</label>
                                 <input
+                                    required
+                                    value={formData.city}
+                                    onChange={handleChange}
                                     type="text"
                                     name="city"
                                     id="city"
@@ -194,6 +209,9 @@ export default function UpdateListingForm() {
                             <div>
                                 <label className="block font-medium mb-1">State/Region</label>
                                 <input
+                                    required
+                                    value={formData.region}
+                                    onChange={handleChange}
                                     type="text"
                                     name="region"
                                     id="region"
@@ -202,6 +220,9 @@ export default function UpdateListingForm() {
                             <div>
                                 <label className="block font-medium mb-1">GPS Address</label>
                                 <input
+                                    required
+                                    value={formData.gpsAddress}
+                                    onChange={handleChange}
                                     type="text"
                                     name="gpsAddress"
                                     id="gpsAddress"
@@ -222,31 +243,49 @@ export default function UpdateListingForm() {
                         <h3 className="text-xl font-semibold mb-4">Property Details</h3>
                         <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                             <input
+                                required
+                                value={formData.bedrooms}
+                                onChange={handleChange}
                                 className="border p-2 rounded" placeholder="Bedrooms"
                                 type="number"
                                 name="bedrooms"
                                 id="bedrooms" />
                             <input
+                                required
+                                value={formData.bathrooms}
+                                onChange={handleChange}
                                 className="border p-2 rounded" placeholder="Bathrooms"
                                 type="number"
                                 name="bathrooms"
                                 id="bathrooms" />
                             <input
+                                required
+                                value={formData.squareFeet}
+                                onChange={handleChange}
                                 className="border p-2 rounded" placeholder="Square Feet"
                                 type="number"
                                 name="squareFeet"
                                 id="squareFeet" />
                             <input
+                                required
+                                value={formData.yearBuilt}
+                                onChange={handleChange}
                                 className="border p-2 rounded" placeholder="Year Built"
                                 type="number"
                                 name="yearBuilt"
                                 id="yearBuilt" />
                             <input
+                                required
+                                value={formData.parkingSpace}
+                                onChange={handleChange}
                                 className="border p-2 rounded" placeholder="Parking Spaces"
                                 type="number"
                                 name="parkingSpace"
                                 id="parkingSpace" />
                             <input
+                                required
+                                value={formData.petPolicy}
+                                onChange={handleChange}
                                 className="border p-2 rounded" placeholder="Pet Policy"
                                 name="petPolicy"
                                 id="petPolicy" />
@@ -257,16 +296,23 @@ export default function UpdateListingForm() {
                         <h3 className="text-xl font-semibold mb-4">Pricing & Terms</h3>
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                             <input
+                                required
+                                value={formData.monthlyPrice}
+                                onChange={handleChange}
                                 className="border p-2 rounded" placeholder="Monthly Rent ($)"
                                 type="number"
                                 name="monthlyPrice"
                                 id="monthlyPrice" />
                             <input
+                                required
+                                value={formData.deposit}
+                                onChange={handleChange}
                                 className="border p-2 rounded" placeholder="Security Deposit ($)" type="number"
                                 name="deposit"
                                 id="deposit" />
                             <div>
                                 <select
+                                    required
                                     id="leaseTerm"
                                     name="leaseTerm"
                                     value={leaseTerm}
@@ -279,6 +325,7 @@ export default function UpdateListingForm() {
                                 </select>
                             </div>
                             <input
+                                required
                                 className="border p-2 rounded" placeholder="Available Date"
                                 type="date"
                                 name="availableDate"
@@ -289,6 +336,8 @@ export default function UpdateListingForm() {
                     <div>
                         <h3 className="text-xl font-semibold mb-4">Property Photos</h3>
                         <input
+                            // value={formData.images}
+                            required
                             type="file"
                             multiple
                             name="images"
@@ -342,8 +391,7 @@ export default function UpdateListingForm() {
                     </div>
 
                     <div className="flex justify-end gap-4">
-                        <button type="button" className="bg-gray-200 px-4 py-2 rounded">Save as Draft</button>
-                        <button type="submit" className="bg-[#2980B9] hover:bg-[#1F618D] text-white px-6 py-2 rounded">Publish Property</button>
+                        <button type="submit" className={`bg-[#2980B9] hover:bg-[#1F618D] text-white px-6 py-2 rounded ${isUpdating ? "animate-pulse transition duration-300":""}`}>{isUpdating ? "Updating..." : "Update Property"}</button>
                     </div>
                 </form>
             </section>

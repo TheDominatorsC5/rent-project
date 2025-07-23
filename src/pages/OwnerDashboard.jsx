@@ -2,11 +2,12 @@ import { useState } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import SummaryCard from "../components/Dashboards/SummaryCard";
-import { CheckCircle, FileText, Eye, MessageCircle, Plus, SquarePenIcon, User } from "lucide-react";
+import { CheckCircle, FileText, Eye, MessageCircle, Plus, SquarePenIcon, TrashIcon, ChevronLeft } from "lucide-react";
 import { Link } from "react-router";
-import useSWR from "swr";
+import useSWR, {mutate} from "swr";
 import { apiFetcher } from "../api/client";
 import { useNavigate } from "react-router";
+import { apiClient } from "../api/client";
 
 export default function OwnerDashboard() {
     const { data, isLoading, error } = useSWR("/api/rent/property/landlord/properties", apiFetcher);
@@ -21,35 +22,50 @@ export default function OwnerDashboard() {
         navigate('/update-listing-form', {state: {property: property}})
     }
 
-    const [listings, setListings] = useState([
-        {
-            id: 1,
-            title: "Modern Downtown Apartment",
-            address: "123 Main Street, Downtown",
-            status: "Active",
-            date: "Jan 15, 2025",
-            price: "$2,500/month",
-            views: 47,
-        },
-        {
-            id: 2,
-            title: "Luxury Penthouse Suite",
-            address: "456 Oak Avenue, Uptown",
-            status: "Active",
-            date: "Feb 3, 2025",
-            price: "$4,200/month",
-            views: 89,
-        },
-        {
-            id: 3,
-            title: "Cozy Studio Loft",
-            address: "789 Pine Street, Arts District",
-            status: "Under Review",
-            date: "Mar 1, 2025",
-            price: "$1,800/month",
-            views: 0,
-        },
-    ]);
+    const handleRemove = (id) => {
+        apiClient.delete(`/api/rent/property/delete/${id}`)
+        .then((res) => {
+            if (res.data.success) {
+                mutate("/api/rent/property/landlord/properties");
+            }
+        })
+        .catch((error) => {
+            console.log('error:', error);
+            
+        })
+        
+        
+    };
+
+    // const [listings, setListings] = useState([
+    //     {
+    //         id: 1,
+    //         title: "Modern Downtown Apartment",
+    //         address: "123 Main Street, Downtown",
+    //         status: "Active",
+    //         date: "Jan 15, 2025",
+    //         price: "$2,500/month",
+    //         views: 47,
+    //     },
+    //     {
+    //         id: 2,
+    //         title: "Luxury Penthouse Suite",
+    //         address: "456 Oak Avenue, Uptown",
+    //         status: "Active",
+    //         date: "Feb 3, 2025",
+    //         price: "$4,200/month",
+    //         views: 89,
+    //     },
+    //     {
+    //         id: 3,
+    //         title: "Cozy Studio Loft",
+    //         address: "789 Pine Street, Arts District",
+    //         status: "Under Review",
+    //         date: "Mar 1, 2025",
+    //         price: "$1,800/month",
+    //         views: 0,
+    //     },
+    // ]);
 
     const [activities, setActivities] = useState([
         {
@@ -82,6 +98,7 @@ export default function OwnerDashboard() {
                     <div className="flex items-center space-x-2">
                         {/* <span className="text-xl text-gray-500"><User /></span>
                         <p>User Name</p> */}
+                        <Link to="/rent-listings" className="text-blue-600 underline flex"><span><ChevronLeft/></span><span>Back to Properties</span></Link>
                     </div>
                 </div>
 
@@ -100,7 +117,7 @@ export default function OwnerDashboard() {
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-                    <SummaryCard title="Active Listings" count={3} icon={<FileText className="text-blue-500 bg-gray-200 p-1 rounded-sm size-8 border border-[#7F8C8D] hover:bg-[#2980B9]" />} />
+                    <SummaryCard title="Active Listings" count={data?.length} icon={<FileText className="text-blue-500 bg-gray-200 p-1 rounded-sm size-8 border border-[#7F8C8D] hover:bg-[#2980B9]" />} />
                     <SummaryCard title="Total Views" count={1247} icon={<Eye className="text-gray-700 bg-gray-200 p-1 rounded-sm size-8 border border-[#7F8C8D] hover:bg-[#2980B9]" />} />
                     <SummaryCard title="Inquiries" count={28} icon={<MessageCircle className="text-blue-500 bg-gray-200 p-1 rounded-sm size-8 border border-[#7F8C8D] hover:bg-[#2980B9]" />} />
                 </div>
@@ -122,10 +139,10 @@ export default function OwnerDashboard() {
                                         <img src={listing.images[0]} alt="" />
                                     </div>
                                     <div>
-                                        <h4 className="font-medium">{listing.propertyTitle} <span className="">Status</span></h4>
+                                        <h4 className="font-medium">{listing.propertyTitle}</h4>
                                         <p className="text-sm text-gray-500">{listing.streetAddress}</p>
                                         <div className="text-sm text-gray-600 flex flex-wrap gap-2 mt-1">
-                                            <span className="font-medium"><span className="mr-2">Status:</span>{listing.status}</span>
+                                            <span className="font-medium"><span className="mr-2">Status:</span><span  style={{color: listing.status=='approved'?'green' : listing.status=='rejected'?'red' : 'blue'}}>{listing.status}</span></span>
                                             <span className="text-gray-400">•</span>
                                             <span>Listed: {'01/01/2025'}</span>
                                         </div>
@@ -137,8 +154,9 @@ export default function OwnerDashboard() {
                                     </div>
                                 </div>
                                 <div className="text-right min-w-[120px]">
-                                    <p className="font-medium">{listing.price}</p>
-                                    <p className="text-sm text-gray-500">{listing.views} views</p>
+                                    <p className="font-medium"><span className="text-sm font-light">Ghc</span>{listing.monthlyPrice}</p>
+                                    <p className="text-sm text-gray-500 mb-6">{listing.leaseTerm}</p>
+                                    <button onClick={() => handleRemove(listing.id)}>{<TrashIcon className="text-gray-500 hover:text-[#E74C3C] hover:border-[#E74C3C] bg-gray-100 p-1 rounded-sm size-8 border-2 border-[#7F8C8D]" />}</button>
                                 </div>
                             </div>
                         ))}

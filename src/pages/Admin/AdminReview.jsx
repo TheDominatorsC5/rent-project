@@ -13,11 +13,16 @@ export default function AdminReview() {
     const location = useLocation();
     const listing = location.state.data;
 
+    const [isApproving, setApproving] = useState(false);
+    const [isRejecting, setRejecting] = useState(false);
     const [open, setOpen] = useState(false);
     const [photoIndex, setPhotoIndex] = useState(0);
     const photos = listing.images;
 
+    const animate = ""
+
     async function approve() {
+        setApproving(true);
         try {
             const response = await apiClient.post(`/api/rent/property/review/${listing.id}`, {status: "approved"},  {
                 headers: {
@@ -27,16 +32,20 @@ export default function AdminReview() {
     
             if (response.data.success) {
                 navigate('/admin/pending');
+                setApproving(false)
             }
             else {
                 navigate('/admin/pending');
+                setApproving(false);
             }
         } catch (error) {
+            setApproving(false);
             console.log('error:', error)
         }
     }
 
     async function reject() {
+        setRejecting(true)
         try {
             const response = await apiClient.post(`/api/rent/property/review/${listing.id}`, {status: "rejected"}, {
                 headers: {
@@ -46,12 +55,14 @@ export default function AdminReview() {
             
             if (response.data.success) {
                 navigate('/admin/pending');
+                setRejecting(false)
             }
             else {
                 navigate('/admin/pending');
+                setRejecting(false);
             }
         } catch (error) {
-            
+            setRejecting(false);
         }
     }
 
@@ -137,8 +148,11 @@ export default function AdminReview() {
                     </div>
                     {/* Action Buttons */}
                     <div className="flex gap-4 justify-end">
-                        <button onClick={approve} className="bg-[#2ECC71] text-white px-4 py-2 rounded hover:bg-green-700">Approve</button>
-                        <button onClick={reject} className="bg-[#E74C3C] text-white px-4 py-2 rounded hover:bg-red-700">Reject</button>
+                        <button onClick={approve} className={`bg-[#2ECC71] text-white px-4 py-2 rounded hover:bg-green-700 ${isApproving ? "animate-pulse transition duration-300":""}`}>
+                            {isApproving ? "Approving..." : "Approve"}
+                        </button>
+
+                        <button onClick={reject} className={`bg-[#E74C3C] text-white px-4 py-2 rounded hover:bg-red-700 ${isRejecting ? "animate-pulse transition duration-300":""}`}>{isRejecting ? "Rejecting..." : "Reject"}</button>
                     </div>
                 </section>
             </div>

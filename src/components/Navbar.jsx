@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Menu, X, ChevronDown, CirclePower, } from 'lucide-react';
 import { Link, useLocation } from 'react-router'; // Fix: use 'react-router-dom' not 'react-router'
 import { FaHouseUser } from "react-icons/fa";
-
+import { useNavigate } from 'react-router';
 
 export default function Navbar() {
     const [isOpen, setIsOpen] = useState(false);
@@ -10,7 +10,7 @@ export default function Navbar() {
     const [userrole, setUserRole] = useState('');
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const location = useLocation();
-
+    const navigate = useNavigate()
     const isActive = (path) => location.pathname === path;
 
 
@@ -34,6 +34,25 @@ export default function Navbar() {
         setIsAuthenticated(false);
         setUserRole('');
         setUsername('');
+    }
+
+    const navigateHandler = () => {
+        const token = localStorage.getItem("ACCESS_TOKEN");
+        const role = localStorage.getItem("role");
+
+        if (!token) {
+            navigate('/login');
+            console.log('no token, signin')
+            return;
+        }
+
+        if (role !== "landlord") {
+            console.log('unauthorized')
+            return;
+        }
+
+        navigate('/owner-dashboard');
+        
     }
 
     return (
@@ -83,7 +102,7 @@ export default function Navbar() {
                                     </div>
                                 </div> */}
                             </div>
-                            <Link to='/owner-dashboard' className="px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:text-white hover:bg-gray-800 transition-colors">
+                            <Link onClick={navigateHandler} className="px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:text-white hover:bg-gray-800 transition-colors">
                                 For Owners
                                 </Link>
                             <Link to='/contact' className="px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:text-white hover:bg-gray-800 transition-colors">

@@ -22,7 +22,7 @@ export default function PendingReviews() {
     }, []);
 
     function viewListing(listing) {
-        navigate('/admin-review', { state: { data: listing } })
+        navigate('/admin/review', { state: { data: listing } })
     }
 
     return (

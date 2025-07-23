@@ -2,13 +2,16 @@ import { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import SummaryCard from "../components/Dashboards/SummaryCard";
-import { HeartIcon, EyeIcon, SearchIcon, Forward, TrashIcon, User, List } from "lucide-react";
-import useSWR from "swr";
+import { HeartIcon, EyeIcon, SearchIcon, Forward, TrashIcon, ChevronLeft, List } from "lucide-react";
+import useSWR, {mutate} from "swr";
 import { apiClient, apiFetcher } from "../api/client";
 import { useNavigate } from "react-router";
+import { Link } from "react-router";
 
 export default function UserDashboard() {
     const { data, isLoading, error } = useSWR("/api/rent/property/favorite/all", apiFetcher);
+
+    const userName = localStorage.getItem("username")
 
     console.log('favorites:', data)
 
@@ -43,9 +46,17 @@ export default function UserDashboard() {
     }
 
     const handleRemove = (id) => {
-        apiClient.delete(`/api/api/rent/ptoperty/favorite/delete${id}`)
-        .then((res) => {})
-        .catch((error) => {})
+        apiClient.delete(`/api/rent/property/favorite/delete/${id}`)
+        .then((res) => {
+            if (res.data.success) {
+                mutate("/api/rent/property/favorite/all");
+            }
+        })
+        .catch((error) => {
+            console.log('error:', error);
+            
+        })
+        
         
     };
 
@@ -66,13 +77,14 @@ export default function UserDashboard() {
                     <div>
                         <h2 className="text-2xl font-bold">User Dashboard</h2>
                         <p className="text-gray-600">
-                            Welcome back <span className="font-medium">User Name</span>! Here's what's happening with your saved listings.
+                            Welcome back <span className="font-medium">{userName}</span>! Here's what's happening with your saved listings.
                         </p>
                     </div>
                     {/* <div className="flex items-center space-x-2">
                         <span className="text-xl text-gray-500"><User /></span>
                         <p>User Name</p>
                     </div> */}
+                    <Link to="/rent-listings" className="text-blue-600 underline flex"><ChevronLeft /><span>Back to Properties</span></Link>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
@@ -109,6 +121,9 @@ export default function UserDashboard() {
                                     </div>
                                 </div>
                             ))}
+                            <div style={{display: data === undefined || data.length===0 ? 'flex':'none',}} className="h-[200px] justify-center items-center" >
+                            <h3 className="text-2xl font-bold ">No Saved Listing</h3>
+                        </div>
                         </div>
                     </div>
 
