@@ -129,7 +129,7 @@ export default function RentListingDetails() {
                         <p className="flex items-center"><WavesLadder className="mr-2" /> Pool</p>
                         <p className="flex items-center"><ShieldCheck className="mr-2" /> Security</p> */}
                         {
-                            property.amenities.map(amenity => (<p className="flex items-center">{amenity == "Parking" ? <CarFront className="mr-2" /> : amenity == "Pool" ? <WavesLadder className="mr-2" /> : amenity == "Security" ? <ShieldCheck className="mr-2" /> : amenity == "Wifi" ? <WifiHigh className="mr-2" /> : amenity == "Generator" ? <Cable className="mr-2" /> : amenity == "Air Conditioning" ? <Snowflake className="mr-2" /> : amenity == "Gym" ? <Dumbbell className="mr-2" /> : ""} {amenity}</p>))
+                            property.amenities?.map(amenity => (<p className="flex items-center">{amenity == "Parking" ? <CarFront className="mr-2" /> : amenity == "Pool" ? <WavesLadder className="mr-2" /> : amenity == "Security" ? <ShieldCheck className="mr-2" /> : amenity == "Wifi" ? <WifiHigh className="mr-2" /> : amenity == "Generator" ? <Cable className="mr-2" /> : amenity == "Air Conditioning" ? <Snowflake className="mr-2" /> : amenity == "Gym" ? <Dumbbell className="mr-2" /> : ""} {amenity}</p>))
                         }
                     </div>
                 </div>
