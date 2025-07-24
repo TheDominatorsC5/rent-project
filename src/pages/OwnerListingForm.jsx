@@ -5,7 +5,7 @@ import Footer from "../components/Footer";
 import { apiClient } from "../api/client";
 import { useNavigate } from "react-router";
 import { Link } from "react-router";
-import { ChevronLeft } from "lucide-react/icons";
+import { ChevronLeft } from "lucide-react";
 
 const propertyTypes = [
     "Apartment",
