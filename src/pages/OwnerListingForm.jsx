@@ -5,7 +5,7 @@ import Footer from "../components/Footer";
 import { apiClient } from "../api/client";
 import { useNavigate } from "react-router";
 import { Link } from "react-router";
-import { CheveronLeft } from "lucide-react/icons";
+import { ChevronLeft } from "lucide-react/icons";
 
 const propertyTypes = [
     "Apartment",
@@ -108,7 +108,7 @@ export default function OwnerListingForm() {
                         <h2 className="text-2xl font-bold">Add New Property</h2>
                         <p className="text-gray-600">Fill out the form below to list your property</p>
                     </div>
-                    <Link to="/rent-listings" className="text-blue-600 underline flex"><span><CheveronLeft/></span><span>Back to Properties</span></Link>
+                    <Link to="/rent-listings" className="text-blue-600 underline flex"><span><ChevronLeft/></span><span>Back to Properties</span></Link>
                 </div>
 
                 <form onSubmit={handleSubmit} className="space-y-8">

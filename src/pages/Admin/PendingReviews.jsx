@@ -1,11 +1,10 @@
-import React from "react";
-import { useAdminData } from "../../context/AdminDataContext";
+// import React from "react";
+// import { useAdminData } from "../../context/AdminDataContext";
 import Aside from "../../components/Dashboards/Aside";
 import DetailBar from "../../components/Dashboards/DetailBar";
 import { useEffect, useState } from "react";
 import { apiClient } from "../../api/client";
 import { useNavigate } from "react-router";
-import SubmitButton from "../../components/SubmitButton";
 
 export default function PendingReviews() {
     const navigate = useNavigate()

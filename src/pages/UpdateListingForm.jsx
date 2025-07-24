@@ -3,7 +3,7 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { apiClient } from "../api/client";
 import { useLocation, useNavigate } from "react-router";
-import { Link } from "react-router";
+import { Link } from "react-router-dom";
 
 const propertyTypes = [
     "Apartment",

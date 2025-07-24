@@ -3,7 +3,7 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import SummaryCard from "../components/Dashboards/SummaryCard";
 import { CheckCircle, FileText, Eye, MessageCircle, Plus, SquarePenIcon, TrashIcon, ChevronLeft } from "lucide-react";
-import { Link } from "react-router";
+import { Link } from "react-router-dom";
 import useSWR, {mutate} from "swr";
 import { apiFetcher } from "../api/client";
 import { useNavigate } from "react-router";
