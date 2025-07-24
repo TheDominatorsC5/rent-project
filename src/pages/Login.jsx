@@ -28,7 +28,11 @@ export default function Login() {
                 localStorage.setItem("role", response.data.role)
                 if (response.data.role == "landlord") {
                     navigate("/owner-dashboard");
-                } else {
+                }
+                else if (response.data.role == "admin") {
+                    navigate("/admin");
+                }
+                else {
                     navigate("/");
                 }
             } else {
