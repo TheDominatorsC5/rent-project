@@ -1,10 +1,49 @@
 import { Search } from "lucide-react";
+import { useState } from "react";
 
-export default function SearchFilterBar() {
+export default function SearchFilterBar({setDisplayData, displayData}) {
+    const [location, setLocation] = useState('');
+    const [price, setPrice] = useState('');
+    const [bedrooms, setBedrooms] = useState('');
+
+    const handlePrice = (e) => {
+        setPrice(e.target.value);
+    }
+
+    const handleLocation = (e) => {
+        setLocation(e.target.value);
+    }
+
+    const handlePropertyType = (e) => {
+        setBedrooms(e.target.value);
+    }
+
+    const filterProperty = async () => {
+        const results = displayData.filter(property => {
+            let locationStr = location.trim().toString()
+            let PLocationStr = property.city.trim().toString();
+            let typeStr = bedrooms.trim().toString()
+            let PTypeStr = property.bedrooms.trim().toString();
+            let priceStr = price.trim().toString()
+            let monthlyPriceStr = property.monthlyPrice.trim().toString();
+
+            if (PLocationStr === locationStr || monthlyPriceStr === priceStr || PTypeStr === typeStr) {
+                return property;
+            }
+        });
+
+        if (results.length === 0) {
+            alert("Sorry, no such property is available");
+        }
+        else {
+            setDisplayData(results);
+        }
+    }
+
     return (
         <div>
             <div className="overflow-hidden w-full rounded-xl border-[#a7b3b4] border-1 shadow-sm bg-white mt-10 p-4">
-                    <form
+                    <div
                         className="flex flex-row justify-around">
 
                         <div className="flex flex-col w-[15%]">
@@ -13,34 +52,37 @@ export default function SearchFilterBar() {
                                 name="location"
                                 id="location"
                                 placeholder="Enter city or area"
-                                className="py-2 px-4 border-[#7F8C8D] border text-medium font-normal rounded-lg mt-2" />
+                                className="py-2 px-4 border-[#7F8C8D] border text-medium font-normal rounded-lg mt-2" 
+                                onChange={handleLocation}
+                            />
                         </div>
 
                         <div className="flex flex-col w-[15%]">
-                            <label className="" htmlFor="price">Price Range</label>
-                            <select name="price" id="price"
-                                className="py-2 px-4 border-[#7F8C8D] border text-medium font-normal rounded-lg mt-2">
-                                <option selected disabled className="text-[#7F8C8D]">Any Price</option>
-                                <option value="price">Ghc500-Ghc1000</option>
-                                <option value="price">Ghc1000-Ghc2000</option>
-                                <option value="price">Ghc2000-Ghc3000</option>
-                                <option value="price">Ghc3000+</option>
-                            </select>
+                            <label className="" htmlFor="price">Price</label>
+                            <input type="text"
+                                name="location"
+                                id="location"
+                                placeholder="Enter city or area"
+                                className="py-2 px-4 border-[#7F8C8D] border text-medium font-normal rounded-lg mt-2" 
+                                onChange={handlePrice}
+                            />
                         </div>
 
                         <div className="flex flex-col w-[15%]">
                             <label className="" htmlFor="roomType">Room Type</label>
-                            <select name="roomType" id="roomType"
-                                className="py-2 px-4 border-[#7F8C8D] border text-medium font-normal rounded-lg mt-2">
+                            <select name="roomType" id="roomType" onChange={handlePropertyType}
+                                className="py-2 px-4 border-[#7F8C8D] border text-medium font-normal rounded-lg mt-2"
+                            >
                                 <option selected disabled className="text-[#7F8C8D]">Any Type</option>
                                 <option value="studio">Studio</option>
                                 <option value="1 bedroom">1 Bedroom</option>
                                 <option value="2 bedroom">2 Bedroom</option>
-                                <option value="3 bedroom">3+ Bedroom</option>
+                                <option value="3 bedroom">3 Bedroom</option>
+                                <option value="3 bedroom">4 Bedroom</option>
                             </select>
                         </div>
 
-                        <div className="flex flex-col w-[15%]">
+                        {/* <div className="flex flex-col w-[15%]">
                             <label className="" htmlFor="listingType">Listing Type</label>
                             <select name="listingType" id="listingType"
                                 className="py-2 px-4 border-[#7F8C8D] border text-medium font-normal rounded-lg mt-2">
@@ -49,17 +91,16 @@ export default function SearchFilterBar() {
                                 <option value="verified">Verified only</option>
                                 <option value="all">All</option>
                             </select>
-                        </div>
+                        </div> */}
 
                         <div className="flex flex-col items-end w-[15%]">
-                            <button
-                                type="submit"
+                            <button onClick={filterProperty}
                                 className="flex items-center justify-center bg-black font-medium text-white py-2 px-6 mt-7 rounded-lg text-medium cursor-pointer hover:bg-zinc-600 shadow-md">
                                 <Search className="mr-2" /> Search
                             </button>
                         </div>
 
-                    </form>
+                    </div>
                 </div>
 
                 <div className="flex flex-row justify-between mt-10">
