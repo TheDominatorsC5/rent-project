@@ -103,7 +103,7 @@ export default function Navbar() {
                                     </div>
                                 </div> */}
                             </div>
-                            <Link to='/owner-listing-form' className="px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:text-white hover:bg-gray-800 transition-colors">
+                            <Link to='/owner-dashboard' className="px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:text-white hover:bg-gray-800 transition-colors">
                                 For Owners
                                 </Link>
                             <Link to='/contact' className="px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:text-white hover:bg-gray-800 transition-colors">
