@@ -34,6 +34,7 @@ export default function Navbar() {
         setIsAuthenticated(false);
         setUserRole('');
         setUsername('');
+        navigate("/");
     }
 
     const navigateHandler = () => {
