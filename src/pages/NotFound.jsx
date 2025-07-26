@@ -23,7 +23,7 @@ export default function NotFoundPage() {
 
   // Handlers for popular pages links
   const handleBrowseProperties = () => {
-    navigate('/properties'); // Assuming you have a /listings route
+    navigate('/rent-listings'); // Assuming you have a /listings route
   };
 
   const handleAboutUs = () => {
@@ -78,8 +78,8 @@ export default function NotFoundPage() {
       
       
      {/* Popular Pages Section - NEW */}
-        <div className="flex flex-col items-center justify-center mt-8 pt-8 border-t border-gray-700 bg-[#F9F9F9] font-[outfit] text-[#3333333] p-4"> {/* Added top border for separation */}
-          <h3 className="text-xl md:text-2xl font-bold text-white text-center mb-6">Popular Pages</h3>
+        <div className="flex flex-col items-center justify-center mt-8 pt-8 border-t border-gray-700 bg-[#F9F9F9] font-[outfit] text-[#333333] p-4"> {/* Added top border for separation */}
+          <h3 className="text-xl md:text-2xl font-bold text-[#333333] text-center mb-6">Popular Pages</h3>
           
           <ul className="space-y-4">
             <li>

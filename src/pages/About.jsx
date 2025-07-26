@@ -297,10 +297,10 @@ export default function About() {
             Join thousands of property owners and tenants who have discovered a better way to rent. Start your journey with DirectRent today.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="bg-[#2980B9] hover:bg-[#1F618D] text-white font-bold py-3 px-8 rounded-lg text-lg shadow-lg">
+            <Link to="/owner-listing-form"><button className="bg-[#2980B9] hover:bg-[#1F618D] text-white font-bold py-3 px-8 rounded-lg text-lg shadow-lg">
               List Your Property
-            </button>
-            <Link to="/properties"><button className="bg-transparent border-2 border-white  hover:bg-[#1F618D] hover:text-white  text-blue-600 font-bold py-3 px-8 rounded-lg text-lg shadow-lg">
+            </button></Link>
+            <Link to="/rent-listings"><button className="bg-transparent border-2 border-white  hover:bg-[#1F618D] hover:text-white  text-blue-600 font-bold py-3 px-8 rounded-lg text-lg shadow-lg">
               Browse Properties
             </button></Link>
           </div>

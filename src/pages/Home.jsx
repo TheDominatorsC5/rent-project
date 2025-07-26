@@ -170,7 +170,7 @@ export default function HomePage() {
                     <div className="absolute inset-0  bg-black/60 z-0"></div>
 
                     {/* Content Wrapper for Text and Buttons */}
-                    <div className="relative z-20 max-w-xl lg:text-left">
+                    <div className="relative z-20 max-w-xl lg:text-center">
                         <h1 className="text-4xl md:text-6xl font-bold text-[#F9F9F9] block mb-6 leading-tight">
                             Find Your Perfect
                             Rental Home
@@ -178,13 +178,13 @@ export default function HomePage() {
                         <p className="text-xl text-white mb-8 leading-relaxed">
                             Discover amazing rental properties and connect with trusted landlords. From cozy apartments to spacious houses, find your next home with confidence.
                         </p>
-                        <div className="flex flex-col sm:flex-row justify-center lg:justify-start gap-4">
+                        <div className="flex flex-col sm:flex-row justify-center lg:justify-center gap-4">
                             <Link to='/rent-listings'><button className="flex items-center justify-center font-medium px-6 py-3 rounded-lg text-lg cursor-pointer text-white bg-[#2980B9] hover:bg-[#1F618D]">
                                 <FaSearch className="mr-2" /> Search Rentals
                             </button></Link>
-                            <button className="flex items-center justify-center font-medium px-6 py-3 rounded-lg text-lg cursor-pointer  text-white bg-[#2980B9] hover:bg-[#1F618D]">
+                            <Link to='/owner-listing-form'><button className="flex items-center justify-center font-medium px-6 py-3 rounded-lg text-lg cursor-pointer  text-white bg-[#2980B9] hover:bg-[#1F618D]">
                                 <FaPlus className="mr-2" /> List Your Property
-                            </button>
+                            </button></Link>
                         </div>
                     </div>
 
@@ -218,9 +218,9 @@ export default function HomePage() {
                             <p className="text-base text-[#333333] mb-6 leading-relaxed">
                                 Browse verified listings, schedule viewings, and apply online with our secure platform.
                             </p>
-                            <button className="bg-[#2980B9] hover:bg-[#1F618D] text-white font-bold py-3 px-6 w-full rounded-lg text-lg ">
+                            <Link to='/rent-listings'><button className="bg-[#2980B9] hover:bg-[#1F618D] text-white font-bold py-3 px-6 w-full rounded-lg text-lg ">
                                 Start Searching
-                            </button>
+                            </button></Link>
                         </div>
 
                         {/* Card for Property Owners */}
@@ -232,9 +232,9 @@ export default function HomePage() {
                             <p className="text-base text-[#333333] mb-6 leading-relaxed">
                                 List your properties, screen tenants, and manage rentals all in one place.
                             </p>
-                            <button className="bg-[#2980B9] hover:bg-[#1F618D] text-white font-bold py-3 px-6 w-full rounded-lg text-lg">
+                            <Link to="/owner-listing-form"><button className="bg-[#2980B9] hover:bg-[#1F618D] text-white font-bold py-3 px-6 w-full rounded-lg text-lg">
                                 List Property
-                            </button>
+                            </button></Link>
                         </div>
                     </div>
                 </section>
@@ -309,10 +309,10 @@ export default function HomePage() {
                         <p className="text-xl text-white mb-8">
                             Join thousands of renters and landlords who trust MeFieConnect for their housing needs.
                         </p>
-                        <button className="bg-[#2980B9] hover:bg-[#1F618D] text-white px-8 py-4 rounded-lg font-medium  flex items-center justify-center mx-auto group">
+                        <Link to='/rent-listings'><button className="bg-[#2980B9] hover:bg-[#1F618D] text-white px-8 py-4 rounded-lg font-medium  flex items-center justify-center mx-auto group">
                             Start Searching Today
                             <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
-                        </button>
+                        </button></Link>
                     </div>
                 </section>
                 {/* Features Section */}
