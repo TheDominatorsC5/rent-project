@@ -3,6 +3,7 @@ import Home from "./pages/Home"
 import About from "./pages/About";
 import AdminLogin from "./pages/Admin/AdminLogin";
 import AdminReview from "./pages/Admin/AdminReview";
+import AdminAllReview from "./pages/Admin/AdminAllReview";
 import AdminDashboard from "./pages/AdminDashboard";
 import AllListings from "./pages/Admin/AllListings";
 import FlaggedPosts from "./pages/Admin/FlaggedPosts";
@@ -31,6 +32,7 @@ import OwnerContact from "./pages/OwnerContact";
     { path: '/admin', element: <AdminDashboard /> },
     { path: '/admin/login', element: <AdminLogin /> },
     { path: '/admin/review', element: <AdminReview /> },
+    { path: '/admin/all/review', element: <AdminAllReview /> },
     { path: '/admin/listings', element: <AllListings /> },
     { path: '/admin/flagged', element: <FlaggedPosts /> },
     { path: '/admin/pending', element: <PendingReviews /> },

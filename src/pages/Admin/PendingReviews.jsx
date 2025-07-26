@@ -38,20 +38,20 @@ export default function PendingReviews() {
                         <ul className="space-y-4 ">
                             {listings.map((listing) => (
                                 <li style={{ display: listing.status == 'pending' ? 'flex' : 'none' }} key={listing.id} className="border p-4 rounded shadow flex justify-between items-baseline-last">
-                                    
+
                                     <div className="md:flex gap-12 w-3/4">
-                                    <img
-                                        src={listing.images[0] || "/placeholder.jpg"}
-                                        alt="Apartment thumbnail"
-                                        className="w-20 h-20 object-cover rounded bg-gray-200"
-                                    />
+                                        <img
+                                            src={listing.images[0] || "/placeholder.jpg"}
+                                            alt="Apartment thumbnail"
+                                            className="w-20 h-20 object-cover rounded bg-gray-200"
+                                        />
                                         <div>
                                             <h3 className="font-bold">{listing.propertyTitle}</h3>
                                             <p>{listing.description}</p>
                                         </div>
                                     </div>
                                     <div>
-                                        <button onClick={() => { viewListing(listing) }} className="text-sm text-white bg-[#2980B9] hover:bg-[#1F618D] px-3 py-1 rounded flex gap-2 items-center">Review</button>
+                                        <button onClick={() => { viewListing(listing) }} className="text-white bg-[#2980B9] hover:bg-[#1F618D] px-3 py-1 rounded">Review</button>
                                     </div>
                                 </li>
                             ))}

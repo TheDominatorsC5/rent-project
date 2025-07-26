@@ -108,7 +108,7 @@ export default function OwnerListingForm() {
                         <h2 className="text-2xl font-bold">Add New Property</h2>
                         <p className="text-gray-600">Fill out the form below to list your property</p>
                     </div>
-                    <Link to="/rent-listings" className="text-blue-600 underline flex"><span><ChevronLeft/></span><span>Back to Properties</span></Link>
+                    <Link to="/owner-dashboard" className="text-blue-600 underline flex"><span><ChevronLeft/></span><span>Back to Dashboard</span></Link>
                 </div>
 
                 <form onSubmit={handleSubmit} className="space-y-8">
