@@ -112,10 +112,10 @@ export default function RentListingDetails() {
                     </div>
 
                     {/* Location & verification */}
-                    <div className="flex flex-wrap items-center gap-4 mt-3 text-[#7F8C8D] font-medium">
+                    <div className="flex flex-wrap items-center gap-18 mt-3 text-[#7F8C8D] font-medium">
                         <p className="flex items-center"><MapPin className="mr-1" />{property.city}</p>
-                        <p className="flex items-center bg-[#27AE60] text-white px-3 py-1 rounded-full text-sm">
-                            <Check className="mr-1" /> Verified
+                        <p className="flex items-center  text-black p-1  text-lg">
+                            <Check className="mr-3 bg-[#32cc72] rounded-full stroke-white size-5 p-1" /> Owner
                         </p>
                     </div>
 

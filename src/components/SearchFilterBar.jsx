@@ -33,7 +33,7 @@ export default function SearchFilterBar({setDisplayData, displayData}) {
         });
 
         if (results.length === 0) {
-            alert("Sorry, no such property is available");
+            alert("Sorry, no such property is available or check your caps lock");
         }
         else {
             setDisplayData(results);
@@ -46,7 +46,7 @@ export default function SearchFilterBar({setDisplayData, displayData}) {
                     <div
                         className="flex flex-row justify-around">
 
-                        <div className="flex flex-col w-[15%]">
+                        <div className="flex flex-col w-[20%]">
                             <label className="" htmlFor="location">Location</label>
                             <input type="text"
                                 name="location"
@@ -57,7 +57,7 @@ export default function SearchFilterBar({setDisplayData, displayData}) {
                             />
                         </div>
 
-                        <div className="flex flex-col w-[15%]">
+                        <div className="flex flex-col w-[20%]">
                             <label className="" htmlFor="price">Price</label>
                             <input type="text"
                                 name="location"
@@ -68,9 +68,17 @@ export default function SearchFilterBar({setDisplayData, displayData}) {
                             />
                         </div>
 
-                        <div className="flex flex-col w-[15%]">
+                        <div className="flex flex-col w-[20%]">
                             <label className="" htmlFor="roomType">Room Type</label>
-                            <select name="roomType" id="roomType" onChange={handlePropertyType}
+                            <input
+                            onChange={handlePropertyType} 
+                            className="py-2 px-4 border-[#7F8C8D] border text-medium font-normal rounded-lg mt-2" 
+                            placeholder="Bedrooms"
+                            type="number"
+                            name="roomType"
+                            id="roomType" />
+
+                            {/* <select name="roomType" id="roomType" onChange={handlePropertyType}
                                 className="py-2 px-4 border-[#7F8C8D] border text-medium font-normal rounded-lg mt-2"
                             >
                                 <option selected disabled className="text-[#7F8C8D]">Any Type</option>
@@ -79,23 +87,13 @@ export default function SearchFilterBar({setDisplayData, displayData}) {
                                 <option value="2 bedroom">2 Bedroom</option>
                                 <option value="3 bedroom">3 Bedroom</option>
                                 <option value="3 bedroom">4 Bedroom</option>
-                            </select>
+                            </select> */}
                         </div>
 
-                        {/* <div className="flex flex-col w-[15%]">
-                            <label className="" htmlFor="listingType">Listing Type</label>
-                            <select name="listingType" id="listingType"
-                                className="py-2 px-4 border-[#7F8C8D] border text-medium font-normal rounded-lg mt-2">
-                                <option selected disabled className="text-[#7F8C8D]">All Listings</option>
-                                <option value="direct">Direct from Landlord</option>
-                                <option value="verified">Verified only</option>
-                                <option value="all">All</option>
-                            </select>
-                        </div> */}
 
                         <div className="flex flex-col items-end w-[15%]">
                             <button onClick={filterProperty}
-                                className="flex items-center justify-center bg-black font-medium text-white py-2 px-6 mt-7 rounded-lg text-medium cursor-pointer hover:bg-zinc-600 shadow-md">
+                                className="flex items-center justify-center bg-black font-medium text-white py-2 px-10 mt-7 rounded-lg text-medium cursor-pointer hover:bg-zinc-600 shadow-md">
                                 <Search className="mr-2" /> Search
                             </button>
                         </div>
@@ -106,7 +104,7 @@ export default function SearchFilterBar({setDisplayData, displayData}) {
                 <div className="flex flex-row justify-between mt-10">
                     <p className="text-lg font-medium">Showing 1-12</p>
 
-                    <form action="">
+                    {/* <form action="">
                         <div className="flex flex-row">
                             <label className="font-medium mt-1" htmlFor="sort by">Sort By:</label>
                             <select name="sor by" id="sort"
@@ -117,7 +115,7 @@ export default function SearchFilterBar({setDisplayData, displayData}) {
                                 <option value="">Most Relevant</option>
                             </select>
                         </div>
-                    </form>
+                    </form> */}
 
                 </div>
         </div>

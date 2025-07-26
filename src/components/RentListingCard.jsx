@@ -1,10 +1,10 @@
 import { MapPin, Check } from "lucide-react";
 import { useNavigate } from "react-router";
 
-export default function RentListingCard({property}) {
+export default function RentListingCard({ property }) {
     const navigate = useNavigate();
     const navigationHandler = () => {
-        navigate('/rent-listing-detail', {state: {property: property}});
+        navigate('/rent-listing-detail', { state: { property: property } });
     }
 
     return (
@@ -18,9 +18,12 @@ export default function RentListingCard({property}) {
             <div className="bg-white w-[90%] mx-auto my-4">
                 <div className="flex justify-between">
                     <h2 className="text-lg md:text-xl font-medium text-black">{property.propertyTitle}</h2>
-                    <p className="flex flex-row items-center justify-center rounded-full bg-[#27AE60] py-1 px-3 text-white">
-                        <Check className="mr-1 p-1" /> Verified
+                    <p className="flex items-center  text-black p-1  text-lg">
+                        <Check className="mr-3 bg-[#32cc72] rounded-full stroke-white size-5 p-1" /> Owner
                     </p>
+
+
+
                 </div>
                 <p className="text-black font-normal text-sm md:text-lg mt-2">
                     {property.propertyType}
@@ -35,9 +38,9 @@ export default function RentListingCard({property}) {
                     <span className="text-lg md:text-2xl font-medium text-black">₵{property.monthlyPrice}/month</span>
 
                     {/* <Link to="/rent-listing-detail"> */}
-                        <button onClick={navigationHandler} className="bg-[#2980B9] font-semibold text-white text-xs md:text-sm px-3 md:px-4 py-1.5 md:py-2 rounded-lg hover:bg-[#1F618D] transition-colors">
-                            View Details
-                        </button>
+                    <button onClick={navigationHandler} className="bg-[#2980B9] font-semibold text-white text-xs md:text-sm px-3 md:px-4 py-1.5 md:py-2 rounded-lg hover:bg-[#1F618D] transition-colors">
+                        View Details
+                    </button>
                     {/* </Link> */}
                 </div>
             </div>
