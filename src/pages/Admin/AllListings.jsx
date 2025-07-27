@@ -67,7 +67,7 @@ export default function AllListings() {
                                             <span className="font-semibold">Location:</span> {listing.streetAddress}
                                         </p>
                                         <p className="text-sm text-gray-600">
-                                            <span className="font-semibold">Status:</span> {listing.status}
+                                            <span className="font-semibold">Status:</span> <span style={{color: listing.status == "pending" ? "blue" : listing.status == "approved" ? "green" : "red"}}>{listing.status}</span>
                                         </p>
                                     </div>
                                     <div className="flex flex-col justify-between">
