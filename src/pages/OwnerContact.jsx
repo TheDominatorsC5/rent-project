@@ -14,7 +14,7 @@ export default function OwnerContact() {
     return (
         <>
             <Navbar />
-            <div className="font-[outfit] w-[90%] mx-auto">
+            <div className="font-[outfit] w-[90%] mx-auto h-full">
                 {/* <Link to={"/rent-listing-detail"}> */}
                 <button onClick={navigationHandler}
                     className="flex items-center text-sm sm:text-base md:text-lg text-[#7F8C8D] hover:text-black cursor-pointer my-8">
@@ -29,7 +29,7 @@ export default function OwnerContact() {
                     <div className="flex flex-col">
                         <h2 className="font-medium text-3xl">Kwaku Manu</h2>
                         <p className="text-lg text-[#7F8C8D]">Landlord</p>
-                        <p className="text-xl font-normal mt-4 text-[#7F8C8D]">Typically responds within an hour</p>
+                        <p className="text-xl font-normal mt-4 text-[#7F8C8D]">Typically responds within 24 hours</p>
                     </div>
                     <User className="rounded-full border-2 bg-black stroke-white size-16 mt-1 p-2" />
 
@@ -47,15 +47,34 @@ export default function OwnerContact() {
 
                     <form action="" className="">
 
-                        <div className="flex flex-col w-[60%]">
+                        <div className="flex flex-col md:w-[60%] sm:w-full">
                             <label
-                                htmlFor="location"
-                                className="font-medium text-xl">Message the Host</label>
+                                htmlFor="email"
+                                className="font-medium text-xl">Send an email to Landlord</label>
+
+                            <input type="text" 
+                            name="name" 
+                            id=""
+                            placeholder="Enter your Name"
+                            className="py-2  px-4 border-[#7F8C8D] border text-medium font-normal rounded-lg mt-4" />
+
+                            <input type="email" 
+                            name="email" 
+                            id=""
+                            placeholder="Enter your email"
+                            className="py-2  px-4 border-[#7F8C8D] border text-medium font-normal rounded-lg mt-2" />
+
+                            <input type="tel" 
+                            name="tel" 
+                            id=""
+                            placeholder="Enter your phone number"
+                            className="py-2  px-4 border-[#7F8C8D] border text-medium font-normal rounded-lg mt-2" />
+
                             <textarea
                                 name="location"
                                 id="location"
-                                placeholder="Hi, I need help with..."
-                                className="h-54 py-2  px-4 border-[#7F8C8D] border text-medium font-normal rounded-lg mt-2" >
+                                placeholder="Enter Message"
+                                className="h-30 py-2  px-4 border-[#7F8C8D] border text-medium font-normal rounded-lg mt-2" >
                             </textarea>
 
                             <button className="bg-[#2980B9] font-semibold text-white text-sm md:text-lg px-3 md:px-6 py-1.5 md:py-2 rounded-lg hover:bg-[#1F618D] transition-colors mt-4">
@@ -66,9 +85,6 @@ export default function OwnerContact() {
 
                     </form>
                 </div>
-
-
-
 
             </div >
 

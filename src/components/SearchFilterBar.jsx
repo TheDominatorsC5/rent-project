@@ -1,7 +1,7 @@
 import { Search } from "lucide-react";
 import { useState } from "react";
 
-export default function SearchFilterBar({setDisplayData, displayData}) {
+export default function SearchFilterBar({ setDisplayData, displayData }) {
     const [location, setLocation] = useState('');
     const [price, setPrice] = useState('');
     const [bedrooms, setBedrooms] = useState('');
@@ -33,7 +33,7 @@ export default function SearchFilterBar({setDisplayData, displayData}) {
         });
 
         if (results.length === 0) {
-            alert("Sorry, no such property is available or check your caps lock");
+            alert("Sorry, no such property is available or try checking your caps lock");
         }
         else {
             setDisplayData(results);
@@ -42,43 +42,63 @@ export default function SearchFilterBar({setDisplayData, displayData}) {
 
     return (
         <div>
-            <div className="overflow-hidden w-full rounded-xl border-[#a7b3b4] border-1 shadow-sm bg-white mt-10 p-4">
-                    <div
-                        className="flex flex-row justify-around">
+            <div className="overflow-hidden w-full rounded-xl border-[#a7b3b4] border shadow-sm bg-white mt-10 p-4">
+                <div className="flex flex-col gap-6 sm:flex-row sm:flex-wrap sm:justify-between lg:justify-around">
 
-                        <div className="flex flex-col w-[20%]">
-                            <label className="" htmlFor="location">Location</label>
-                            <input type="text"
-                                name="location"
-                                id="location"
-                                placeholder="Enter city or area"
-                                className="py-2 px-4 border-[#7F8C8D] border text-medium font-normal rounded-lg mt-2" 
-                                onChange={handleLocation}
-                            />
-                        </div>
+                    <div className="flex flex-col w-full sm:w-[48%] lg:w-[20%]">
+                        <label htmlFor="location">Location</label>
+                        <input
+                            type="text"
+                            name="location"
+                            id="location"
+                            placeholder="Enter city or area"
+                            className="py-2 px-4 border-[#7F8C8D] border text-medium font-normal rounded-lg mt-2"
+                            onChange={handleLocation}
+                        />
+                    </div>
 
-                        <div className="flex flex-col w-[20%]">
-                            <label className="" htmlFor="price">Price</label>
-                            <input type="text"
-                                name="location"
-                                id="location"
-                                placeholder="Enter city or area"
-                                className="py-2 px-4 border-[#7F8C8D] border text-medium font-normal rounded-lg mt-2" 
-                                onChange={handlePrice}
-                            />
-                        </div>
+                    <div className="flex flex-col w-full sm:w-[48%] lg:w-[20%]">
+                        <label htmlFor="price">Price</label>
+                        <input
+                            type="text"
+                            name="price"
+                            id="price"
+                            placeholder="Enter price"
+                            className="py-2 px-4 border-[#7F8C8D] border text-medium font-normal rounded-lg mt-2"
+                            onChange={handlePrice}
+                        />
+                    </div>
 
-                        <div className="flex flex-col w-[20%]">
-                            <label className="" htmlFor="roomType">Room Type</label>
-                            <input
-                            onChange={handlePropertyType} 
-                            className="py-2 px-4 border-[#7F8C8D] border text-medium font-normal rounded-lg mt-2" 
+                    <div className="flex flex-col w-full sm:w-[48%] lg:w-[20%]">
+                        <label htmlFor="roomType">Room Type</label>
+                        <input
+                            onChange={handlePropertyType}
+                            className="py-2 px-4 border-[#7F8C8D] border text-medium font-normal rounded-lg mt-2"
                             placeholder="Bedrooms"
                             type="number"
                             name="roomType"
-                            id="roomType" />
+                            id="roomType"
+                        />
+                    </div>
 
-                            {/* <select name="roomType" id="roomType" onChange={handlePropertyType}
+                    <div className="flex flex-col items-start sm:items-end w-full sm:w-[48%] lg:w-[15%]">
+                        <button
+                            onClick={filterProperty}
+                            className="flex items-center justify-center bg-black font-medium text-white py-2 px-10 mt-8 rounded-lg text-medium cursor-pointer hover:bg-zinc-600 shadow-md"
+                        >
+                            <Search className="mr-2" /> Search
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div className="flex flex-col sm:flex-row sm:justify-between mt-10">
+                <p className="text-lg font-medium">Showing 1-12</p>
+            </div>
+
+
+            {/* A filter bar to show multiple options of bedroom */}
+            {/* <select name="roomType" id="roomType" onChange={handlePropertyType}
                                 className="py-2 px-4 border-[#7F8C8D] border text-medium font-normal rounded-lg mt-2"
                             >
                                 <option selected disabled className="text-[#7F8C8D]">Any Type</option>
@@ -88,23 +108,9 @@ export default function SearchFilterBar({setDisplayData, displayData}) {
                                 <option value="3 bedroom">3 Bedroom</option>
                                 <option value="3 bedroom">4 Bedroom</option>
                             </select> */}
-                        </div>
 
-
-                        <div className="flex flex-col items-end w-[15%]">
-                            <button onClick={filterProperty}
-                                className="flex items-center justify-center bg-black font-medium text-white py-2 px-10 mt-7 rounded-lg text-medium cursor-pointer hover:bg-zinc-600 shadow-md">
-                                <Search className="mr-2" /> Search
-                            </button>
-                        </div>
-
-                    </div>
-                </div>
-
-                <div className="flex flex-row justify-between mt-10">
-                    <p className="text-lg font-medium">Showing 1-12</p>
-
-                    {/* <form action="">
+            {/* A sort by input bar to show multiple options to choose from */}
+            {/* <form action="">
                         <div className="flex flex-row">
                             <label className="font-medium mt-1" htmlFor="sort by">Sort By:</label>
                             <select name="sor by" id="sort"
@@ -116,8 +122,6 @@ export default function SearchFilterBar({setDisplayData, displayData}) {
                             </select>
                         </div>
                     </form> */}
-
-                </div>
         </div>
     );
 }

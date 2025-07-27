@@ -49,7 +49,7 @@ export default function SlideShow({images}) {
         <div className="sm:hidden flex flex-col">
           <div className="flex justify-between items-center p-4">
 
-            <Heart className="stroke-white size-8 p-2 rounded-full hover:bg-red-600 cursor-pointer" />
+            <Heart className="stroke-white size-8 p-2 ml-4 rounded-full hover:bg-red-600 cursor-pointer" />
 
             <p className="text-white">{currentIndex + 1} / {images.length}</p>
 
@@ -60,12 +60,12 @@ export default function SlideShow({images}) {
           </div>
 
           <div className="flex items-center justify-between px-4">
-            <ArrowLeft onClick={goPrev} className="stroke-white size-8 p-2 rounded-full hover:bg-zinc-600 cursor-pointer" />
+            <ArrowLeft onClick={goPrev} className="hidden stroke-white size-8 p-2 rounded-full hover:bg-zinc-600 cursor-pointer" />
             <img src={images[currentIndex]} alt="" className="max-h-[60vh] object-contain mx-2" />
-            <ArrowRight onClick={goNext} className="stroke-white size-8 p-2 rounded-full hover:bg-zinc-600 cursor-pointer" />
+            <ArrowRight onClick={goNext} className="hidden stroke-white size-8 p-2 rounded-full hover:bg-zinc-600 cursor-pointer" />
           </div>
 
-          <div className="flex overflow-x-auto space-x-2 p-4">
+          <div className="flex justify-center items-center overflow-x-auto space-x-1 p-4">
             {images.map((img, idx) => (
               <img
                 key={idx} 
@@ -83,7 +83,7 @@ export default function SlideShow({images}) {
         {/* Desktop */}
         <div className="hidden sm:block px-4 py-8">
           <div className="flex justify-between items-center mb-6">
-            <Heart className="stroke-white size-10 p-2 rounded-full hover:bg-red-600 cursor-pointer" />
+            <Heart className="stroke-white size-10 p-2 ml-2 rounded-full hover:bg-red-600 cursor-pointer" />
             <p className="text-white text-lg">{currentIndex + 1} / {images.length}</p>
             <button onClick={handleClose} className="text-white px-3 py-1 hover:bg-red-600 rounded flex items-center">
               <X className="stroke-white size-6" />
