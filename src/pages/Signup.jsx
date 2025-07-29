@@ -67,7 +67,7 @@ export default function SignUp() {
 
     return (
         <>
-            <section className="bg-lightgray text-deepgray flex items-center justify-center relative min-h-[100vh] bg-cover bg-center bg-no-repeat">
+            <section className="bg-lightgray text-deepgray flex mditems-center justify-center relative min-h-[100vh] bg-cover bg-center bg-no-repeat">
                 <div className='relative z-10 w-full py-4'>
                     <div className="md:flex items-center justify-center gap-8">
                         <div className="mx-4 md:w-2/5 bg-white backdrop-blur-md border border-white/90 rounded-xl shadow-xl p-8">

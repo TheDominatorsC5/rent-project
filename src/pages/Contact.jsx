@@ -35,10 +35,10 @@ export default function Contact() {
                             <p><strong>Email:</strong> info@propertyhub.com</p>
                         </div>
 
-                        <div>
+                        <div className='bg-white p-6 rounded-lg shadow'>
                             <h4 className="text-xl font-semibold mb-6 mt-10">Quick Contact</h4>
-                            <button className="w-full bg-gray-700 text-white py-2 rounded mb-2">Chat on WhatsApp</button>
-                            <button className="w-full bg-gray-900 text-white py-2 rounded">Live Chat Support</button>
+                            <button className="w-full bg-gray-600  hover:bg-gray-700 text-white py-2 rounded mb-2">Chat on WhatsApp</button>
+                            <button className="w-full bg-blue-900  hover:bg-gray-800 text-white py-2 rounded">Live Chat Support</button>
                         </div>
 
                         <div>
@@ -49,9 +49,9 @@ export default function Contact() {
                         </div>
                     </div>
 
-                    <div className="mt-12">
-                        <h3 className="text-2xl font-semibold mb-4 text-center">Platform Support</h3>
-                        <div className="grid md:grid-cols-3 gap-6">
+                    <div className="mt-16">
+                        <h3 className="text-2xl sm:text-3xl font-semibold mb-6 text-center">Platform Support</h3>
+                        <div className="grid gap-6 md:grid-cols-3">
                             <div className="bg-[#2C3E50] text-white p-6 rounded-lg shadow text-center">
                                 <h4 className="font-bold text-white">FAQ</h4>
                                 <p className="text-white">Find quick answers to common questions.</p>

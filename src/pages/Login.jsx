@@ -57,10 +57,10 @@ export default function Login() {
     return (
         <>
 
-            <section className="bg-lightgray text-deepgray relative h-[100vh] flex items-center justify-around bg-cover bg-center bg-no-repeat">
-                <div className='relative z-10 w-full'>
-                    <div className="flex flex-col-reverse md:flex-row items-center justify-center gap-8 w-full">
-                        <div className="w-2/5 bg-white backdrop-blur-md border border-white/90 rounded-xl shadow-xl p-8">
+            <section className="bg-lightgray text-deepgray relative h-[100vh] flex md:items-center justify-around bg-cover bg-center bg-no-repeat">
+                <div className='relative z-10 w-full py-4'>
+                    <div className="md:flex items-center justify-center gap-8">
+                        <div className="mx-4 md:w-2/5 bg-white backdrop-blur-md border border-white/90 rounded-xl shadow-xl p-8">
                             <div className='flex flex-col items-center space-y-2 mb-2'>
                                 {/* Logo */}
                                 <div className='flex justify-around items-center text-white transition duration-300 ease-in-out hover:-translate-y-1 hover:scale-110'>
@@ -121,7 +121,6 @@ export default function Login() {
                         </div>
                     </div>
                 </div>
-
             </section>
         </>
     );
